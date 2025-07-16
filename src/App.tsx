@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Button } from './stories/Button';
+import Task from './components/Task';
+import './index.css';
 
 interface IPost {
   id: number;
@@ -43,6 +45,7 @@ function App() {
         onClick={handleClick}
         primary={active}
       />
+      <Task task={{ id: '1', title: 'test', state: 'TASK_INBOX' }} />
     </>
   );
 }
