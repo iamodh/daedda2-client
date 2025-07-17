@@ -25,6 +25,72 @@ const PostsRoute = () => {
   return (
     <div>
       <h1 className="bg-amber-500">Posts</h1>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
+        officia quam quis delectus velit quae molestiae mollitia aliquid
+        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
+        obcaecati illum tenetur exercitationem dignissimos.
+      </p>
       {posts && (
         <ul>
           {posts.map((post) => (
