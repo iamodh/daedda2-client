@@ -1,105 +1,27 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Posts } from '@/features/post/posts';
+// import axios from 'axios';
+// import { useEffect, useState } from 'react';
 
-interface IPost {
-  id: number;
-  title: string;
-  content: string;
-}
 const PostsRoute = () => {
-  const [posts, setPosts] = useState<IPost[]>();
+  // const [posts, setPosts] = useState<IPost[]>();
 
-  useEffect(() => {
-    getPosts();
-  }, []);
+  // useEffect(() => {
+  //   getPosts();
+  // }, []);
 
-  async function getPosts() {
-    const response = await axios.get<IPost[]>('http://localhost:4000/posts');
+  // async function getPosts() {
+  //   const response = await axios.get<IPost[]>('http://localhost:4000/posts');
 
-    if (Array.isArray(response.data)) {
-      // 로컬 서버 사용시 올바른 포트에 요청 보냈는지 확인
-      setPosts(response.data);
-    }
-  }
+  //   if (Array.isArray(response.data)) {
+  //     // 로컬 서버 사용시 올바른 포트에 요청 보냈는지 확인
+  //     setPosts(response.data);
+  //   }
+  // }
 
   return (
     <div>
-      <h1 className="bg-amber-500">Posts</h1>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis
-        officia quam quis delectus velit quae molestiae mollitia aliquid
-        reprehenderit, eos, voluptatum dignissimos. Officiis, totam provident
-        obcaecati illum tenetur exercitationem dignissimos.
-      </p>
-      {posts && (
-        <ul>
-          {posts.map((post) => (
-            <li>
-              <p>{post.title}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+      <h1>HI</h1>
+      <Posts />
     </div>
   );
 };

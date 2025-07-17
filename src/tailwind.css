@@ -72,4 +72,9 @@
 
 @theme {
   --font-pret: 'Pretendard';
+
+  --color-pirmary: #6123ff;
+
+  --shadow-custom: -1px -1px 16px 0px #eee,
+    3px 3px 18px 0px rgba(170, 170, 170, 0.5);
 }
