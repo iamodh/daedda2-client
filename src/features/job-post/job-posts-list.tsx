@@ -12,7 +12,7 @@ const JobPostsList = ({ posts }: JobPostsListProps) => {
         {posts.map((post) => (
           <li
             key={post.id}
-            className="flex items-center justify-between py-3 px-4 shadow-custom rounded-2xl"
+            className="flex items-center justify-between py-3 px-4 shadow-custom rounded-2xl gap-4"
           >
             <div className="flex flex-col gap-0.5">
               <p className="font-bold md:text-lg line-clamp-1">{post.title}</p>
