@@ -1,4 +1,4 @@
-import PostsRoute from '@/app/routes/app/posts/posts';
+import JobPostsRoute from '@/app/routes/app/job-posts/job-posts';
 import AppRoot from '@/app/routes/app/root';
 import LandingRoute from '@/app/routes/landing';
 import { paths } from '@/config/paths';
@@ -16,7 +16,7 @@ export const createAppRouter = () =>
       children: [
         {
           path: paths.app.posts.path,
-          element: <PostsRoute />,
+          element: <JobPostsRoute />,
         },
       ],
     },
