@@ -27,9 +27,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Primary: Story = {
   args: {
     children: '버튼',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    children: '버튼',
+    variant: 'outline',
   },
 };
 
@@ -44,12 +51,5 @@ export const Large: Story = {
   args: {
     children: '버튼',
     size: 'lg',
-  },
-};
-
-export const Outline: Story = {
-  args: {
-    children: '버튼',
-    variant: 'outline',
   },
 };
