@@ -19,7 +19,7 @@ const JobPostsList = ({ posts }: JobPostsListProps) => {
               <p className="font-semibold md:text-sm text-xs text-slate-700">
                 {post.place}ㆍ{post.location.split(' ')[2]}
               </p>
-              <p className="font-bold md:text-lg text-pirmary">
+              <p className="font-bold md:text-lg text-pirmary-500">
                 {post.pay.toLocaleString()}원ㆍ시급{' '}
                 {parseInt(
                   (post.pay / post.totalHours).toFixed(0)
