@@ -37,8 +37,11 @@ const JobPostsRoute = () => {
 
   return (
     <div>
-      <h1>HI</h1>
-      {posts && <JobPostsList posts={posts} />}
+      {posts ? (
+        <JobPostsList posts={posts} />
+      ) : (
+        <h1>등록된 구직 글이 없습니다.</h1>
+      )}
     </div>
   );
 };
