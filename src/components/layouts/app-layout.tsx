@@ -17,7 +17,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
         onClickAlert={onAlertClick}
         onClickMenu={onMenuClick}
       />
-      <main className="pt-[56px] py-[60px]">{children}</main>
+      <main className="pt-[56px] py-[76px]">{children}</main>
       <Footer />
     </div>
   );

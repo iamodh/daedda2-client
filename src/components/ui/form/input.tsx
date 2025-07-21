@@ -9,7 +9,7 @@ const Input = ({ label, type = 'text' }: InputProps) => {
       {label}
       <input
         type={type}
-        className={`w-full rounded-sm ring-slate-600 ring-2 focus:ring-indigo-500 outline-0 py-1 px-2`}
+        className={`w-full rounded-sm ring-slate-600 ring-2 focus:ring-indigo-500 outline-0 p-2`}
       />
     </label>
   );
