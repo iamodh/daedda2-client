@@ -17,6 +17,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: '인풋 라벨',
+    label: '제목',
+  },
+};
+
+export const Date: Story = {
+  args: {
+    label: '근무 날짜',
+    type: 'date',
   },
 };
