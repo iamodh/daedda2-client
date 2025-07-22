@@ -15,11 +15,11 @@ const meta = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['default', 'outline'],
+      options: ['primary', 'secondary'],
     },
     size: {
       control: { type: 'select' },
-      options: ['default', 'sm', 'lg'],
+      options: ['full', 'sm', 'lg'],
     },
   },
 } satisfies Meta<typeof Button>;
@@ -36,7 +36,7 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     children: '버튼',
-    variant: 'outline',
+    variant: 'secondary',
   },
 };
 
