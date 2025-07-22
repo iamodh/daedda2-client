@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button/button';
+import { Dividor } from '@/components/ui/form/dividor';
 import { Input } from '@/components/ui/form/input';
+import { InputContent } from '@/components/ui/form/input-content';
 import { InputImage } from '@/components/ui/form/input-image';
 import axios from 'axios';
 import { useForm, type SubmitHandler } from 'react-hook-form';
@@ -14,6 +16,7 @@ interface newPostInputs {
   place: string;
   imageUrl?: string | null;
   totalHours: number;
+  content: string;
 }
 
 const JobPostNewRoute = () => {
@@ -42,7 +45,7 @@ const JobPostNewRoute = () => {
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSumbit)}>
+    <form onSubmit={handleSubmit(onSumbit)}>
       <div className="flex flex-col gap-2">
         <Input
           label="제목"
@@ -71,7 +74,7 @@ const JobPostNewRoute = () => {
         />
         <InputImage label="근무지 사진" />
       </div>
-      <hr />
+      <Dividor />
       <div className="flex flex-col gap-2">
         <Input
           label="근무 날짜"
@@ -84,6 +87,7 @@ const JobPostNewRoute = () => {
         <Input
           label="시작 시간"
           registration={register('startTime', {
+            required: '시작 시간은 필수 입력 사항입니다.',
             pattern: {
               value: /^([01]\d|2[0-3]):([0-5]\d)$/,
               message: '시작 시간은 HH:MM 형태로 작성되어야 합니다.',
@@ -95,6 +99,7 @@ const JobPostNewRoute = () => {
         <Input
           label="마치는 시간"
           registration={register('endTime', {
+            required: '마치는 시간은 필수 입력 사항입니다.',
             pattern: {
               value: /^([01]\d|2[0-3]):([0-5]\d)$/,
               message: '마치는 시간은 HH:MM 형태로 작성되어야 합니다.',
@@ -113,9 +118,22 @@ const JobPostNewRoute = () => {
           placeholder="80000"
           error={errors['pay']}
         />
+        <InputContent
+          label="근무 내용"
+          registration={register('content', {
+            required: '근무 내용은 필수 입력 사항입니다.',
+            minLength: {
+              value: 10,
+              message: '근무 내용은 최소 10글자 이상 작성하셔야 합니다.',
+            },
+          })}
+          error={errors['content']}
+        />
       </div>
-      <Button>등록</Button>
-      <Button variant={'outline'}>취소</Button>
+      <div className="mt-6 flex flex-col gap-4">
+        <Button>등록</Button>
+        <Button variant={'outline'}>취소</Button>
+      </div>
     </form>
   );
 };
