@@ -52,8 +52,8 @@ const JobPostNewRoute = () => {
           registration={register('title', {
             required: '제목은 필수 입력 사항입니다.',
             maxLength: {
-              value: 20,
-              message: '제목은 20자 이하로 작성되어야 합니다.',
+              value: 40,
+              message: '제목은 40자 이하로 작성되어야 합니다.',
             },
           })}
           placeholder="편의점 대타 구합니다."
@@ -65,8 +65,8 @@ const JobPostNewRoute = () => {
           registration={register('place', {
             required: '가게 이름은 필수 입력 사항입니다.',
             maxLength: {
-              value: 20,
-              message: '가게 이름은 20자 이하로 작성되어야 합니다.',
+              value: 40,
+              message: '가게 이름은 40자 이하로 작성되어야 합니다.',
             },
           })}
           placeholder="CU 이태원점"
