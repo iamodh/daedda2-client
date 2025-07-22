@@ -35,7 +35,7 @@ const JobPostNewRoute = () => {
 
     const newPost = {
       ...values,
-      location: '임시 위치 데이터',
+      location: '임시 위치 테스트',
       totalHours,
       imageUrl: null,
     };
