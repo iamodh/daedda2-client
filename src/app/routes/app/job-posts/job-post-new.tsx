@@ -41,7 +41,6 @@ const JobPostNewRoute = () => {
     };
 
     axios.post('http://localhost:4000/job-posts', newPost);
-    console.log(typeof newPost.pay);
   };
 
   return (
@@ -132,7 +131,7 @@ const JobPostNewRoute = () => {
       </div>
       <div className="mt-6 flex flex-col gap-4">
         <Button>등록</Button>
-        <Button variant={'outline'}>취소</Button>
+        <Button variant={'secondary'}>취소</Button>
       </div>
     </form>
   );

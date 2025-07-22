@@ -7,20 +7,20 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
+        primary:
           ' bg-primary-300  hover:bg-pirmary-500 text-white ring-primary-300 ring-2 hover:ring-pirmary-500',
-        outline:
+        secondary:
           'bg-white ring-2 ring-primary-300  hover:ring-pirmary-500 text-black',
       },
       size: {
-        default: 'w-full',
+        full: 'w-full',
         sm: 'w-16',
         lg: 'w-32',
       },
     },
     defaultVariants: {
-      variant: 'default',
-      size: 'default',
+      variant: 'primary',
+      size: 'full',
     },
   }
 );
