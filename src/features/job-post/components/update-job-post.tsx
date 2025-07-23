@@ -22,7 +22,7 @@ export const UpdateJobPost = () => {
     );
 
     if (response.data) {
-      // id, createdAt 안 받음
+      // id, createdAt 안 받음 (수정 필요)
       const { id, createdAt, ...rest } = response.data;
       reset({ ...rest, date: response.data.date.slice(0, 10) });
     }
