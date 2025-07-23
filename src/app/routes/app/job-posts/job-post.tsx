@@ -1,20 +1,36 @@
+import type { JobPost } from '@/app/routes/app/job-posts/job-posts';
+import { JobPostView } from '@/features/job-post/components/job-post-view';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
 const JobPostRoute = () => {
   const { jobPostId } = useParams();
+
+  const [jobPost, setJobPost] = useState<JobPost>();
+  useEffect(() => {
+    getJobPost();
+  }, []);
+
+  async function getJobPost() {
+    const response = await axios.get<JobPost>(
+      `http://localhost:4000/job-posts/${jobPostId}`
+    );
+
+    if (response.data) {
+      // 로컬 서버 사용시 올바른 포트에 요청 보냈는지 확인
+      setJobPost(response.data);
+    }
+  }
   return (
     <div>
-      <div>
-        <div>타이틀과 구인 날짜</div>
-        <div>구인글 작성자 정보, 북마크, 수정 삭제 버튼</div>
-        <div>가게 이름</div>
-        <div>위치 정보</div>
-        <div>근무지 사진</div>
-      </div>
-      <div>근무 날짜</div>
-      <div>시작시간, 마치는 시간</div>
-      <div>일당, 시급</div>
-      <div>근무 내용</div>
+      {jobPost ? (
+        <div>
+          <JobPostView jobPost={jobPost} />
+        </div>
+      ) : (
+        <div>로딩중...</div>
+      )}
     </div>
   );
 };
