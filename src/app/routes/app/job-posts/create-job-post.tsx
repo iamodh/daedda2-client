@@ -35,7 +35,7 @@ const CreateJobPostRoute = () => {
 
     const newPost = {
       ...values,
-      location: '임시 위치 테스트',
+      location: '경남 김해시 대청동',
       totalHours,
       imageUrl: null,
     };
@@ -58,7 +58,13 @@ const CreateJobPostRoute = () => {
           placeholder="편의점 대타 구합니다."
           error={errors['title']}
         />
-        <div>위치 지도</div>
+        <div className="flex flex-col gap-2">
+          <span className="text-sm">위치 정보</span>
+          <div className="h-40 rounded-lg bg-amber-100 flex justify-center items-center">
+            카카오 지도
+          </div>
+          <span className="text-sm">경남 김해시 대청동</span>
+        </div>
         <Input
           label="가게 이름"
           registration={register('place', {
