@@ -11,13 +11,13 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="max-w-[640px] mx-auto px-2">
+    <div className="max-w-[640px] mx-auto px-4">
       <Header
         user={{ name: 'Jane Doe' }}
         onClickAlert={onAlertClick}
         onClickMenu={onMenuClick}
       />
-      <main className="pt-[56px] py-[76px]">{children}</main>
+      <main className="py-20">{children}</main>
       <Footer />
     </div>
   );
