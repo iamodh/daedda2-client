@@ -4,7 +4,7 @@ interface InputProps {
   label: string;
   type?: string;
   error?: FieldError | undefined;
-  registration: Partial<UseFormRegisterReturn>;
+  registration?: Partial<UseFormRegisterReturn>;
   placeholder?: string;
 }
 

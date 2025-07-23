@@ -15,8 +15,8 @@ export const paths = {
       getHref: () => '/app/job-posts',
     },
     jobPostNew: {
-      path: 'job-posts/new',
-      getHref: () => '/app/job-posts',
+      path: 'job-posts/create',
+      getHref: () => '/app/job-posts/create',
     },
     jobPost: {
       path: 'job-posts/:jobPostId',

@@ -1,10 +1,10 @@
 import JobPostRoute from '@/app/routes/app/job-posts/job-post';
-import JobPostNewRoute from '@/app/routes/app/job-posts/job-post-new';
 import JobPostsRoute from '@/app/routes/app/job-posts/job-posts';
 import AppRoot from '@/app/routes/app/root';
 import LandingRoute from '@/app/routes/landing';
 import { paths } from '@/config/paths';
 import { createBrowserRouter, RouterProvider } from 'react-router';
+import CreateJobPostRoute from '@/app/routes/app/job-posts/create-job-post';
 
 export const createAppRouter = () =>
   createBrowserRouter([
@@ -22,7 +22,7 @@ export const createAppRouter = () =>
         },
         {
           path: paths.app.jobPostNew.path,
-          element: <JobPostNewRoute />,
+          element: <CreateJobPostRoute />,
         },
         {
           path: paths.app.jobPost.path,

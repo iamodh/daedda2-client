@@ -27,3 +27,13 @@ export const Date: Story = {
     type: 'date',
   },
 };
+
+export const Error: Story = {
+  args: {
+    label: '제목',
+    error: {
+      message: '제목은 필수 입력 사항입니다.',
+      type: 'required',
+    },
+  },
+};

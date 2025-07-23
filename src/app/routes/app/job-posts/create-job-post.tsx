@@ -19,7 +19,7 @@ interface newPostInputs {
   content: string;
 }
 
-const JobPostNewRoute = () => {
+const CreateJobPostRoute = () => {
   const {
     register,
     handleSubmit,
@@ -137,4 +137,4 @@ const JobPostNewRoute = () => {
   );
 };
 
-export default JobPostNewRoute;
+export default CreateJobPostRoute;

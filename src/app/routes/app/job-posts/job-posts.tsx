@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-import { JobPostsList } from '@/features/job-post/job-posts-list';
+import { JobPostsList } from '@/features/job-post/components/job-posts-list';
 
 export interface JobPost {
   id: number;
