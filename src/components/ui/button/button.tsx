@@ -14,7 +14,7 @@ const buttonVariants = cva(
       },
       size: {
         full: 'w-full',
-        sm: 'w-16',
+        sm: 'w-16 py-1',
         lg: 'w-32',
       },
     },
