@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type { PropsWithChildren } from 'react';
 
 const buttonVariants = cva(
-  'cursor-pointer py-2 rounded-lg inline-flex items-center justify-center',
+  'cursor-pointer py-2 rounded-sm inline-flex items-center justify-center',
   {
     variants: {
       variant: {

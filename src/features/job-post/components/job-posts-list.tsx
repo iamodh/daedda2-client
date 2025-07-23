@@ -12,7 +12,7 @@ const JobPostsList = ({ jobPosts }: JobPostsListProps) => {
         {jobPosts.map((jobPost) => (
           <li
             key={jobPost.id}
-            className="flex items-center justify-between py-3 px-4 shadow-custom rounded-xl gap-4"
+            className="flex items-center justify-between py-3 px-4 shadow-custom rounded-lg gap-4"
           >
             <div className="flex flex-col gap-0.5">
               <p className="font-bold md:text-lg line-clamp-1">
@@ -36,7 +36,7 @@ const JobPostsList = ({ jobPosts }: JobPostsListProps) => {
             <img
               src={imagePlaceholder}
               width="120px"
-              className="rounded-xl md:size-28 size-26"
+              className="rounded-lg md:size-28 size-26"
             />
           </li>
         ))}
