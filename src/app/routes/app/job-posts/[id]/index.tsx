@@ -1,4 +1,4 @@
-import type { JobPost } from '@/app/routes/app/job-posts/job-posts';
+import type { JobPost } from '@/app/routes/app/job-posts';
 import { JobPostView } from '@/features/job-post/components/job-post-view';
 import axios from 'axios';
 import { useEffect, useState } from 'react';

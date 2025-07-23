@@ -1,4 +1,4 @@
-import type { JobPost } from '@/app/routes/app/job-posts/job-posts';
+import type { JobPost } from '@/app/routes/app/job-posts';
 import imagePlaceholder from '@/assets/images/placeholder-image.png';
 import { paths } from '@/config/paths';
 import { formatDateToKoreanShort } from '@/utils/format';

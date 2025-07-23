@@ -6,7 +6,7 @@ import { InputImage } from '@/components/ui/form/input-image';
 import axios from 'axios';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
-interface newPostInputs {
+interface newJobPostInputs {
   title: string;
   location?: string;
   pay: number;
@@ -19,14 +19,14 @@ interface newPostInputs {
   content: string;
 }
 
-const CreateJobPostRoute = () => {
+export const CreateJobPost = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<newPostInputs>();
+  } = useForm<newJobPostInputs>();
 
-  const onSumbit: SubmitHandler<newPostInputs> = (values) => {
+  const onSumbit: SubmitHandler<newJobPostInputs> = (values) => {
     const totalHours = Math.round(
       (parseInt(values.endTime.replace(':', '')) -
         parseInt(values.startTime.replace(':', ''))) /
@@ -142,5 +142,3 @@ const CreateJobPostRoute = () => {
     </form>
   );
 };
-
-export default CreateJobPostRoute;

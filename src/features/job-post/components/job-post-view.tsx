@@ -1,4 +1,4 @@
-import type { JobPost } from '@/app/routes/app/job-posts/job-posts';
+import type { JobPost } from '@/app/routes/app/job-posts';
 import { Dividor } from '@/components/ui/form/dividor';
 import userPlaceholder from '@/assets/images/placeholder-user.png';
 import imagePlaceholder from '@/assets/images/placeholder-image.png';
