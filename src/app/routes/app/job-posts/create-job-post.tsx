@@ -44,7 +44,7 @@ const CreateJobPostRoute = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSumbit)}>
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSumbit)}>
       <div className="flex flex-col gap-2">
         <Input
           label="제목"
@@ -129,7 +129,7 @@ const CreateJobPostRoute = () => {
           error={errors['content']}
         />
       </div>
-      <div className="mt-6 flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <Button>등록</Button>
         <Button variant={'secondary'}>취소</Button>
       </div>

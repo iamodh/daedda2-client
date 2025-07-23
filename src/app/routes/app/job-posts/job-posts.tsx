@@ -15,30 +15,31 @@ export interface JobPost {
   place: string;
   imageUrl: string | null;
   createdAt: string; // ISO 문자열 (e.g., '2025-07-15T19:55:00.000Z')
+  content: string;
 }
 
 const JobPostsRoute = () => {
-  const [posts, setPosts] = useState<JobPost[]>();
+  const [jobPosts, setJobPosts] = useState<JobPost[]>();
 
   useEffect(() => {
-    getPosts();
+    getJobPosts();
   }, []);
 
-  async function getPosts() {
+  async function getJobPosts() {
     const response = await axios.get<JobPost[]>(
       'http://localhost:4000/job-posts'
     );
 
     if (Array.isArray(response.data)) {
       // 로컬 서버 사용시 올바른 포트에 요청 보냈는지 확인
-      setPosts(response.data);
+      setJobPosts(response.data);
     }
   }
 
   return (
     <div>
-      {posts ? (
-        <JobPostsList posts={posts} />
+      {jobPosts ? (
+        <JobPostsList jobPosts={jobPosts} />
       ) : (
         <h1>등록된 구직 글이 없습니다.</h1>
       )}
