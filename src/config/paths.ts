@@ -20,7 +20,7 @@ export const paths = {
     },
     jobPost: {
       path: 'job-posts/:jobPostId',
-      getHref: (id: string) => `/app/job-posts/${id}`,
+      getHref: (id: number) => `/app/job-posts/${id}`,
     },
   },
 };
