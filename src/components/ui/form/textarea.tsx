@@ -1,23 +1,26 @@
 import type { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
-interface InputProps {
+interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   error?: FieldError | undefined;
   registration: Partial<UseFormRegisterReturn>;
   placeholder?: string;
 }
 
-const InputContent = ({
+const Textarea = ({
   label,
   error,
   registration,
   placeholder,
-}: InputProps) => {
+  ...props
+}: TextareaProps) => {
   return (
     <div className="flex flex-col gap-1">
       <label className="flex flex-col text-sm gap-1">
         {label}
         <textarea
+          {...props}
           {...registration}
           placeholder={placeholder}
           rows={4}
@@ -31,4 +34,4 @@ const InputContent = ({
   );
 };
 
-export { InputContent };
+export { Textarea };

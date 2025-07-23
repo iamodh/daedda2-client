@@ -4,6 +4,8 @@ import userPlaceholder from '@/assets/images/placeholder-user.png';
 import imagePlaceholder from '@/assets/images/placeholder-image.png';
 import { Button } from '@/components/ui/button/button';
 import { formatDateToKoreanShort } from '@/utils/format';
+import { useNavigate } from 'react-router';
+import { paths } from '@/config/paths';
 // To Do
 // - 제목 section 반응형 텍스트 크기 조절
 
@@ -12,6 +14,7 @@ interface JobPostViewProps {
 }
 
 const JobPostView = ({ jobPost }: JobPostViewProps) => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col gap-4">
       <section className="flex flex-col gap-4">
@@ -29,7 +32,14 @@ const JobPostView = ({ jobPost }: JobPostViewProps) => {
             <span>대따 유저</span>
           </div>
           <div className="flex gap-3">
-            <Button size="sm">수정</Button>
+            <Button
+              onClick={() =>
+                navigate(paths.app.eidtJobPost.getHref(jobPost.id))
+              }
+              size="sm"
+            >
+              수정
+            </Button>
             <Button variant="secondary" size="sm">
               삭제
             </Button>

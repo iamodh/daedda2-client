@@ -1,29 +1,38 @@
+import type { JobPost } from '@/app/routes/app/job-posts';
 import { Button } from '@/components/ui/button/button';
 import { Dividor } from '@/components/ui/form/dividor';
 import { Input } from '@/components/ui/form/input';
-import { InputImage } from '@/components/ui/form/input-image';
 import { Textarea } from '@/components/ui/form/textarea';
+import { InputImage } from '@/components/ui/form/input-image';
+import type { newJobPostInputs } from '@/features/job-post/components/create-job-post';
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useParams } from 'react-router';
 
-export interface newJobPostInputs {
-  title: string;
-  location?: string;
-  pay: number;
-  date: string; // ISO 문자열 또는 Date → 백엔드 응답 기준
-  startTime: string; // 'HH:mm' 형식
-  endTime: string; // 'HH:mm' 형식
-  place: string;
-  imageUrl?: string | null;
-  totalHours: number;
-  content: string;
-}
+export const UpdateJobPost = () => {
+  const { jobPostId } = useParams();
+  useEffect(() => {
+    getJobPost();
+  }, []);
 
-export const CreateJobPost = () => {
+  async function getJobPost() {
+    const response = await axios.get<JobPost>(
+      `http://localhost:4000/job-posts/${jobPostId}`
+    );
+
+    if (response.data) {
+      // id, createdAt 안 받음
+      const { id, createdAt, ...rest } = response.data;
+      reset({ ...rest, date: response.data.date.slice(0, 10) });
+    }
+  }
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<newJobPostInputs>();
 
   const onSumbit: SubmitHandler<newJobPostInputs> = (values) => {
@@ -33,14 +42,14 @@ export const CreateJobPost = () => {
         100
     );
 
-    const newPost = {
+    const updatedPost = {
       ...values,
       location: '경남 김해시 대청동',
       totalHours,
       imageUrl: null,
     };
 
-    axios.post('http://localhost:4000/job-posts', newPost);
+    axios.patch(`http://localhost:4000/job-posts/${jobPostId}`, updatedPost);
   };
 
   return (
@@ -136,7 +145,7 @@ export const CreateJobPost = () => {
         />
       </div>
       <div className="flex flex-col gap-4">
-        <Button type="submit">등록</Button>
+        <Button>등록</Button>
         <Button variant={'secondary'}>취소</Button>
       </div>
     </form>

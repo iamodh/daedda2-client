@@ -22,5 +22,9 @@ export const paths = {
       path: 'job-posts/:jobPostId',
       getHref: (id: number) => `/app/job-posts/${id}`,
     },
+    eidtJobPost: {
+      path: 'job-posts/:jobPostId/edit',
+      getHref: (id: number) => `/app/job-posts/${id}/edit`,
+    },
   },
 };

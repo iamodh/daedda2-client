@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
+// Todo
+// - JobPostView에 jobPostId 전달 JobPostView에서 react query 활용해 캐시에서 데이터 찾기
+
 const JobPostRoute = () => {
   const { jobPostId } = useParams();
 
@@ -18,7 +21,6 @@ const JobPostRoute = () => {
     );
 
     if (response.data) {
-      // 로컬 서버 사용시 올바른 포트에 요청 보냈는지 확인
       setJobPost(response.data);
     }
   }

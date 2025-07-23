@@ -1,11 +1,9 @@
 import type { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  type?: string;
   error?: FieldError | undefined;
   registration?: Partial<UseFormRegisterReturn>;
-  placeholder?: string;
 }
 
 const Input = ({
@@ -14,12 +12,14 @@ const Input = ({
   error,
   registration,
   placeholder,
+  ...props
 }: InputProps) => {
   return (
     <div className="flex flex-col gap-1">
       <label className="flex flex-col text-sm gap-1">
         {label}
         <input
+          {...props}
           {...registration}
           type={type}
           placeholder={placeholder}

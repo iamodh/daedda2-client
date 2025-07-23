@@ -5,6 +5,7 @@ import LandingRoute from '@/app/routes/landing';
 import { paths } from '@/config/paths';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import NewJobPostRoute from '@/app/routes/app/job-posts/new';
+import EditJobPostRoute from '@/app/routes/app/job-posts/[id]/edit';
 
 export const createAppRouter = () =>
   createBrowserRouter([
@@ -27,6 +28,10 @@ export const createAppRouter = () =>
         {
           path: paths.app.jobPost.path,
           element: <JobPostRoute />,
+        },
+        {
+          path: paths.app.eidtJobPost.path,
+          element: <EditJobPostRoute />,
         },
       ],
     },
