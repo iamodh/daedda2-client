@@ -8,10 +8,12 @@ import type { newJobPostInputs } from '@/features/job-post/components/create-job
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { paths } from '@/config/paths';
 
 export const UpdateJobPost = () => {
   const { jobPostId } = useParams();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -36,7 +38,7 @@ export const UpdateJobPost = () => {
     }
   }
 
-  const onSumbit: SubmitHandler<newJobPostInputs> = (values) => {
+  const onSumbit: SubmitHandler<newJobPostInputs> = async (values) => {
     const totalHours = Math.round(
       (parseInt(values.endTime.replace(':', '')) -
         parseInt(values.startTime.replace(':', ''))) /
@@ -50,7 +52,26 @@ export const UpdateJobPost = () => {
       imageUrl: null,
     };
 
-    axios.patch(`http://localhost:4000/job-posts/${jobPostId}`, updatedPost);
+    if (!jobPostId) {
+      console.error('잘못된 접근입니다.');
+      return;
+    }
+
+    try {
+      await axios.patch(
+        `http://localhost:4000/job-posts/${jobPostId}`,
+        updatedPost
+      );
+
+      navigate(paths.app.jobPost.getHref(parseInt(jobPostId)), {
+        replace: true,
+      });
+      alert('글 수정이 완료되었습니다.');
+    } catch (error) {
+      alert('글 수정에 실패하였습니다.');
+      console.error(error);
+      navigate(paths.app.jobPosts.getHref(), { replace: true });
+    }
   };
 
   return (
@@ -146,7 +167,7 @@ export const UpdateJobPost = () => {
         />
       </div>
       <div className="flex flex-col gap-4">
-        <Button>등록</Button>
+        <Button>수정</Button>
         <Button variant={'secondary'}>취소</Button>
       </div>
     </form>

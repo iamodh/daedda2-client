@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/form/textarea';
 import { paths } from '@/config/paths';
 import axios from 'axios';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { replace, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 export interface newJobPostInputs {
   title: string;
