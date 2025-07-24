@@ -17,6 +17,7 @@ export const paths = {
     newJobPost: {
       path: 'job-posts/new',
       getHref: () => '/app/job-posts/new',
+      title: '구인글 생성',
     },
     jobPost: {
       path: 'job-posts/:jobPostId',
@@ -25,6 +26,7 @@ export const paths = {
     eidtJobPost: {
       path: 'job-posts/:jobPostId/edit',
       getHref: (id: number) => `/app/job-posts/${id}/edit`,
+      title: '구인글 수정',
     },
   },
 };
