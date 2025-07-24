@@ -167,8 +167,10 @@ export const UpdateJobPost = () => {
         />
       </div>
       <div className="flex flex-col gap-4">
-        <Button>수정</Button>
-        <Button variant={'secondary'}>취소</Button>
+        <Button type="submit">수정</Button>
+        <Button variant={'secondary'} onClick={() => navigate(-1)}>
+          취소
+        </Button>
       </div>
     </form>
   );
