@@ -3,7 +3,7 @@ import bell from '@/assets/icons/bell.svg';
 import menu from '@/assets/icons/menu.svg';
 import { Link } from 'react-router';
 import { paths } from '@/config/paths';
-import type { IUser } from '@/components/layouts';
+import type { IUser } from '@/components/layouts/main-layout';
 
 interface MainHeaderProps {
   user?: IUser;

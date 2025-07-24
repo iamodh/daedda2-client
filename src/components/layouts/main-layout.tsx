@@ -23,7 +23,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
         onAlertClick={onAlertClick}
         onMenuClick={onMenuClick}
       />
-      <main className="py-18">{children}</main>
+      <main className="pt-16 pb-20">{children}</main>
       <Footer />
     </>
   );
