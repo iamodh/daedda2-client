@@ -1,11 +1,11 @@
-import { AppLayout } from '@/components/layouts/app-layout';
+import { FormLayout, MainLayout } from '@/components/layouts';
 import { Outlet } from 'react-router';
 
 const AppRoot = () => {
   return (
-    <AppLayout>
+    <FormLayout>
       <Outlet />
-    </AppLayout>
+    </FormLayout>
   );
 };
 

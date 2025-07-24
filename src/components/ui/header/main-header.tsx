@@ -3,28 +3,26 @@ import bell from '@/assets/icons/bell.svg';
 import menu from '@/assets/icons/menu.svg';
 import { Link } from 'react-router';
 import { paths } from '@/config/paths';
+import type { IUser } from '@/components/layouts';
 
-interface IUser {
-  name: string;
-}
-interface HeaderProps {
+interface MainHeaderProps {
   user?: IUser;
-  onClickAlert: () => void;
-  onClickMenu: () => void;
+  onAlertClick: () => void;
+  onMenuClick: () => void;
 }
-const Header = ({ user, onClickAlert, onClickMenu }: HeaderProps) => {
+const MainHeader = ({ user, onAlertClick, onMenuClick }: MainHeaderProps) => {
   return (
-    <header className="flex justify-between p-2 fixed top-0 left-0 right-0 mx-auto max-w-[640px] bg-white">
+    <header className="flex justify-between p-2 fixed top-0 left-0 right-0 mx-auto max-w-[640px] bg-white h-[56px]">
       <Link to={paths.app.jobPosts.getHref()}>
         <img src={logo} width="140px" />
       </Link>
       <div className="flex items-center">
         {user && (
-          <button onClick={onClickAlert}>
+          <button onClick={onAlertClick}>
             <img src={bell} className="p-2" />
           </button>
         )}
-        <button onClick={onClickMenu}>
+        <button onClick={onMenuClick}>
           <img src={menu} className="p-2" />
         </button>
       </div>
@@ -32,4 +30,4 @@ const Header = ({ user, onClickAlert, onClickMenu }: HeaderProps) => {
   );
 };
 
-export { Header };
+export { MainHeader };
