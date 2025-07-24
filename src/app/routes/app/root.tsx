@@ -1,11 +1,10 @@
-import { FormLayout, MainLayout } from '@/components/layouts';
 import { Outlet } from 'react-router';
 
 const AppRoot = () => {
   return (
-    <FormLayout>
+    <div className="max-w-[640px] mx-auto px-4">
       <Outlet />
-    </FormLayout>
+    </div>
   );
 };
 

@@ -17,7 +17,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
     alert('Menu');
   };
   return (
-    <div className="max-w-[640px] mx-auto px-4">
+    <>
       <MainHeader
         user={tempUser}
         onAlertClick={onAlertClick}
@@ -25,6 +25,6 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
       />
       <main className="py-18">{children}</main>
       <Footer />
-    </div>
+    </>
   );
 };

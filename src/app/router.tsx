@@ -1,11 +1,17 @@
-import JobPostRoute from '@/app/routes/app/job-posts/[id]';
-import JobPostsRoute from '@/app/routes/app/job-posts';
-import AppRoot from '@/app/routes/app/root';
-import LandingRoute from '@/app/routes/landing';
 import { paths } from '@/config/paths';
 import { createBrowserRouter, RouterProvider } from 'react-router';
+
+// 페이지 컴포넌트들
+import JobPostRoute from '@/app/routes/app/job-posts/[id]';
+import JobPostsRoute from '@/app/routes/app/job-posts';
+import LandingRoute from '@/app/routes/landing';
 import NewJobPostRoute from '@/app/routes/app/job-posts/new';
 import EditJobPostRoute from '@/app/routes/app/job-posts/[id]/edit';
+
+// 레이아웃 래퍼 컴포넌트들
+import MainLayoutWrapper from '@/components/layouts/main-layout-wrapper';
+import FormLayoutWrapper from '@/components/layouts/form-layout-wrapper';
+import AppRoot from '@/app/routes/app/root';
 
 export const createAppRouter = () =>
   createBrowserRouter([
@@ -18,20 +24,31 @@ export const createAppRouter = () =>
       element: <AppRoot />,
       children: [
         {
-          path: paths.app.jobPosts.path,
-          element: <JobPostsRoute />,
+          element: <MainLayoutWrapper />,
+          children: [
+            {
+              path: paths.app.jobPosts.path,
+              element: <JobPostsRoute />,
+            },
+            {
+              path: paths.app.jobPost.path,
+              element: <JobPostRoute />,
+            },
+          ],
         },
         {
-          path: paths.app.newJobPost.path,
-          element: <NewJobPostRoute />,
-        },
-        {
-          path: paths.app.jobPost.path,
-          element: <JobPostRoute />,
-        },
-        {
-          path: paths.app.eidtJobPost.path,
-          element: <EditJobPostRoute />,
+          element: <FormLayoutWrapper />,
+          children: [
+            {
+              path: paths.app.newJobPost.path,
+              element: <NewJobPostRoute />,
+            },
+
+            {
+              path: paths.app.eidtJobPost.path,
+              element: <EditJobPostRoute />,
+            },
+          ],
         },
       ],
     },

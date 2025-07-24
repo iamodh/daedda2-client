@@ -1,2 +1,2 @@
-export * from './main-layout';
-export * from './form-layout';
+export * from './main-layout-wrapper';
+export * from './form-layout-wrapper';

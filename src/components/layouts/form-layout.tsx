@@ -5,9 +5,9 @@ export const FormLayout = ({ children }: React.PropsWithChildren) => {
     alert('back');
   };
   return (
-    <div className="max-w-[640px] mx-auto px-4">
+    <>
       <FormHeader onBackClick={onBackClick} pageTitle={'form'} />
       <main className="py-18">{children}</main>
-    </div>
+    </>
   );
 };
