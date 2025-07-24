@@ -1,7 +1,9 @@
 import type { Preview } from '@storybook/react-vite';
 import '../src/tailwind.css';
+import { withRouter } from 'storybook-addon-remix-react-router';
 
 const preview: Preview = {
+  decorators: [withRouter],
   parameters: {
     controls: {
       matchers: {
