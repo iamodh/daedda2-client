@@ -3,8 +3,10 @@ import { Dividor } from '@/components/ui/form/dividor';
 import { Input } from '@/components/ui/form/input';
 import { InputImage } from '@/components/ui/form/input-image';
 import { Textarea } from '@/components/ui/form/textarea';
+import { paths } from '@/config/paths';
 import axios from 'axios';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import { replace, useNavigate } from 'react-router';
 
 export interface newJobPostInputs {
   title: string;
@@ -20,13 +22,14 @@ export interface newJobPostInputs {
 }
 
 export const CreateJobPost = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<newJobPostInputs>();
 
-  const onSumbit: SubmitHandler<newJobPostInputs> = (values) => {
+  const onSumbit: SubmitHandler<newJobPostInputs> = async (values) => {
     const totalHours = Math.round(
       (parseInt(values.endTime.replace(':', '')) -
         parseInt(values.startTime.replace(':', ''))) /
@@ -40,7 +43,21 @@ export const CreateJobPost = () => {
       imageUrl: null,
     };
 
-    axios.post('http://localhost:4000/job-posts', newPost);
+    try {
+      const response = await axios.post(
+        'http://localhost:4000/job-posts',
+        newPost
+      );
+
+      alert('글 작성이 완료되었습니다.');
+      navigate(paths.app.jobPost.getHref(response.data.identifiers?.[0]?.id), {
+        replace: true,
+      });
+    } catch (error) {
+      alert('글 작성에 실패하였습니다.');
+      console.error(error);
+      navigate(paths.app.jobPosts.getHref(), { replace: true });
+    }
   };
 
   return (
