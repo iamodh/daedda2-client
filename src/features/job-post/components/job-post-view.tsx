@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button/button';
 import { formatDateToKoreanShort } from '@/utils/format';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
+import { DeleteJobPost } from '@/features/job-post/components/delete-job-post';
 // To Do
 // - 제목 section 반응형 텍스트 크기 조절
 
@@ -40,9 +41,7 @@ const JobPostView = ({ jobPost }: JobPostViewProps) => {
             >
               수정
             </Button>
-            <Button variant="secondary" size="sm">
-              삭제
-            </Button>
+            <DeleteJobPost jobPostId={jobPost.id} />
           </div>
         </div>
       </section>

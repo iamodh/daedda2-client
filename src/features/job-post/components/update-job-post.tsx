@@ -12,6 +12,14 @@ import { useParams } from 'react-router';
 
 export const UpdateJobPost = () => {
   const { jobPostId } = useParams();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<newJobPostInputs>();
+
   useEffect(() => {
     getJobPost();
   }, []);
@@ -27,13 +35,6 @@ export const UpdateJobPost = () => {
       reset({ ...rest, date: response.data.date.slice(0, 10) });
     }
   }
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<newJobPostInputs>();
 
   const onSumbit: SubmitHandler<newJobPostInputs> = (values) => {
     const totalHours = Math.round(
