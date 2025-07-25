@@ -12,6 +12,8 @@ import EditJobPostRoute from '@/app/routes/app/job-posts/[id]/edit';
 import MainLayoutWrapper from '@/components/layouts/main-layout-wrapper';
 import FormLayoutWrapper from '@/components/layouts/form-layout-wrapper';
 import AppRoot from '@/app/routes/app/root';
+import HistoryRoute from '@/app/routes/app/history';
+import ProfileRoute from '@/app/routes/app/profile';
 
 export const createAppRouter = () =>
   createBrowserRouter([
@@ -34,6 +36,8 @@ export const createAppRouter = () =>
               path: paths.app.jobPost.path,
               element: <JobPostRoute />,
             },
+            { path: paths.app.history.path, element: <HistoryRoute /> },
+            { path: paths.app.profile.path, element: <ProfileRoute /> },
           ],
         },
         {

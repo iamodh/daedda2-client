@@ -28,5 +28,15 @@ export const paths = {
       getHref: (id: number) => `/app/job-posts/${id}/edit`,
       title: '구인글 수정',
     },
+
+    history: {
+      path: 'history',
+      getHref: () => '/app/history',
+    },
+
+    profile: {
+      path: 'profile',
+      getHref: () => '/app/profile',
+    },
   },
 };
