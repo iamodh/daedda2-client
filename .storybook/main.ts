@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
     '@storybook/addon-a11y',
     '@storybook/addon-vitest',
-    'storybook-addon-remix-react-router',
+    'storybook-addon-remix-react-router', // 추가
   ],
   framework: {
     name: '@storybook/react-vite',

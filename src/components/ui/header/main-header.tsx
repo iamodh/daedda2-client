@@ -12,7 +12,7 @@ interface MainHeaderProps {
 }
 const MainHeader = ({ user, onAlertClick, onMenuClick }: MainHeaderProps) => {
   return (
-    <header className="flex justify-between p-2 fixed top-0 left-0 right-0 mx-auto max-w-[640px] bg-white h-[56px]">
+    <header className="flex justify-between p-2 fixed top-0 left-0 right-0 mx-auto max-w-[640px] bg-white h-[56px] z-10">
       <Link to={paths.app.jobPosts.getHref()}>
         <img src={logo} width="140px" />
       </Link>

@@ -36,11 +36,7 @@ const Button = ({
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   return (
-    <button
-      type="submit"
-      className={cn(buttonVariants({ variant, size }))}
-      {...props}
-    >
+    <button className={cn(buttonVariants({ variant, size }))} {...props}>
       {children}
     </button>
   );

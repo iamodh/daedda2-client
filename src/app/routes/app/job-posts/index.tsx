@@ -2,6 +2,10 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { JobPostsList } from '@/features/job-post/components/job-posts-list';
+import { FloatingButton } from '@/components/ui/button/floating-button';
+import plus from '@/assets/icons/plus-white.svg';
+import { useNavigate } from 'react-router';
+import { paths } from '@/config/paths';
 
 export interface JobPost {
   id: number;
@@ -19,6 +23,7 @@ export interface JobPost {
 }
 
 const JobPostsRoute = () => {
+  const navigate = useNavigate();
   const [jobPosts, setJobPosts] = useState<JobPost[]>();
 
   useEffect(() => {
@@ -37,12 +42,18 @@ const JobPostsRoute = () => {
   }
 
   return (
-    <div>
+    <div className="relative flex flex-col">
       {jobPosts ? (
         <JobPostsList jobPosts={jobPosts} />
       ) : (
         <h1>등록된 구직 글이 없습니다.</h1>
       )}
+      <FloatingButton
+        icon={<img src={plus} />}
+        onClick={() => {
+          navigate(paths.app.newJobPost.getHref());
+        }}
+      />
     </div>
   );
 };
