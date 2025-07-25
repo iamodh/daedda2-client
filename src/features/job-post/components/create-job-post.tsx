@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/form/input';
 import { InputImage } from '@/components/ui/form/input-image';
 import { Textarea } from '@/components/ui/form/textarea';
 import { paths } from '@/config/paths';
-import axios from 'axios';
+import { api } from '@/lib/api-client';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
@@ -44,10 +44,7 @@ export const CreateJobPost = () => {
     };
 
     try {
-      const response = await axios.post(
-        'http://localhost:4000/job-posts',
-        newPost
-      );
+      const response = await api.post('/job-posts', newPost);
 
       alert('글 작성이 완료되었습니다.');
       navigate(paths.app.jobPost.getHref(response.data.identifiers?.[0]?.id), {

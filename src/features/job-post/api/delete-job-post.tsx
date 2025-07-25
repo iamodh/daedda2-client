@@ -1,5 +1,5 @@
 import { paths } from '@/config/paths';
-import axios from 'axios';
+import { api } from '@/lib/api-client';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -12,7 +12,7 @@ export const useDeleteJobPost = ({ jobPostId }: UseDeleteJobPostOptions) => {
 
   const deleteJobPost = useCallback(async () => {
     try {
-      await axios.delete(`http://localhost:4000/job-posts/${jobPostId}`);
+      await api.delete(`/job-posts/${jobPostId}`);
       alert('삭제가 완료되었습니다.');
       navigate(paths.app.jobPosts.getHref());
     } catch (error) {

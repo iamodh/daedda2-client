@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import { JobPostsList } from '@/features/job-post/components/job-posts-list';
@@ -6,6 +5,7 @@ import { FloatingButton } from '@/components/ui/button/floating-button';
 import plus from '@/assets/icons/plus-white.svg';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
+import { api } from '@/lib/api-client';
 
 export interface JobPost {
   id: number;
@@ -31,9 +31,7 @@ const JobPostsRoute = () => {
   }, []);
 
   async function getJobPosts() {
-    const response = await axios.get<JobPost[]>(
-      'http://localhost:4000/job-posts'
-    );
+    const response = await api.get<JobPost[]>('/job-posts');
 
     if (Array.isArray(response.data)) {
       // 로컬 서버 사용시 올바른 포트에 요청 보냈는지 확인

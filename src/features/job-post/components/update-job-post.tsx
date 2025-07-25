@@ -5,11 +5,11 @@ import { Input } from '@/components/ui/form/input';
 import { Textarea } from '@/components/ui/form/textarea';
 import { InputImage } from '@/components/ui/form/input-image';
 import type { newJobPostInputs } from '@/features/job-post/components/create-job-post';
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
 import { paths } from '@/config/paths';
+import { api } from '@/lib/api-client';
 
 export const UpdateJobPost = () => {
   const { jobPostId } = useParams();
@@ -27,9 +27,7 @@ export const UpdateJobPost = () => {
   }, []);
 
   async function getJobPost() {
-    const response = await axios.get<JobPost>(
-      `http://localhost:4000/job-posts/${jobPostId}`
-    );
+    const response = await api.get<JobPost>(`/job-posts/${jobPostId}`);
 
     if (response.data) {
       // id, createdAt 안 받음 (수정 필요)
@@ -58,10 +56,7 @@ export const UpdateJobPost = () => {
     }
 
     try {
-      await axios.patch(
-        `http://localhost:4000/job-posts/${jobPostId}`,
-        updatedPost
-      );
+      await api.patch(`/job-posts/${jobPostId}`, updatedPost);
 
       navigate(paths.app.jobPost.getHref(parseInt(jobPostId)), {
         replace: true,
