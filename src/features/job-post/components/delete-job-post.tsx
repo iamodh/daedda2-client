@@ -2,12 +2,17 @@ import { Button } from '@/components/ui/button';
 import { useDeleteJobPost } from '@/features/job-post/api/delete-job-post';
 
 interface DeleteJobPostProps {
-  jobPostId: number;
+  jobPostId: string;
 }
 export const DeleteJobPost = ({ jobPostId }: DeleteJobPostProps) => {
-  const { deleteJobPost } = useDeleteJobPost({ jobPostId });
+  const deleteJobPostMutation = useDeleteJobPost();
+  console.log(jobPostId);
   return (
-    <Button onClick={deleteJobPost} variant="secondary" size="sm">
+    <Button
+      onClick={() => deleteJobPostMutation.mutate({ jobPostId })}
+      variant="secondary"
+      size="sm"
+    >
       삭제
     </Button>
   );

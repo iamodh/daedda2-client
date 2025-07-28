@@ -50,7 +50,7 @@ const JobPostView = ({ jobPostId }: JobPostViewProps) => {
             >
               수정
             </Button>
-            <DeleteJobPost jobPostId={jobPost.id} />
+            <DeleteJobPost jobPostId={jobPostId} />
           </div>
         </div>
       </section>
