@@ -4,13 +4,13 @@ import { api } from '@/lib/api-client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 
-export type UpdateJobPostInput = Omit<JobPost, 'id' | 'createdAt'>;
+export type UpdateJobPostInputs = Omit<JobPost, 'id' | 'createdAt'>;
 
 export const updateJobPost = ({
   data,
   jobPostId,
 }: {
-  data: UpdateJobPostInput;
+  data: UpdateJobPostInputs;
   jobPostId: string;
 }): Promise<JobPost> => {
   return api.patch(`/job-posts/${jobPostId}`, data);

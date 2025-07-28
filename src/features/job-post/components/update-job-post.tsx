@@ -3,14 +3,13 @@ import { Dividor } from '@/components/ui/form/dividor';
 import { Input } from '@/components/ui/form/input';
 import { Textarea } from '@/components/ui/form/textarea';
 import { InputImage } from '@/components/ui/form/input-image';
-import type { newJobPostInputs } from '@/features/job-post/components/create-job-post';
 import { useEffect } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useJobPost } from '@/features/job-post/api/get-job-post';
 import {
   useUpdateJobPost,
-  type UpdateJobPostInput,
+  type UpdateJobPostInputs,
 } from '@/features/job-post/api/update-job-post';
 
 interface UpdateJobPostProps {
@@ -29,7 +28,7 @@ export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<UpdateJobPostInput>();
+  } = useForm<UpdateJobPostInputs>();
 
   useEffect(() => {
     if (jobPost) {
@@ -39,7 +38,7 @@ export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
     }
   }, [jobPost]);
 
-  const onSumbit: SubmitHandler<newJobPostInputs> = async (values) => {
+  const onSumbit: SubmitHandler<UpdateJobPostInputs> = async (values) => {
     const totalHours = Math.round(
       (parseInt(values.endTime.replace(':', '')) -
         parseInt(values.startTime.replace(':', ''))) /

@@ -3,33 +3,23 @@ import { Dividor } from '@/components/ui/form/dividor';
 import { Input } from '@/components/ui/form/input';
 import { InputImage } from '@/components/ui/form/input-image';
 import { Textarea } from '@/components/ui/form/textarea';
-import { paths } from '@/config/paths';
-import { api } from '@/lib/api-client';
+import {
+  useCreateJobPost,
+  type CreateJobPostInputs,
+} from '@/features/job-post/api/create-job-post';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-export interface newJobPostInputs {
-  title: string;
-  location?: string;
-  pay: number;
-  date: string; // ISO 문자열 또는 Date → 백엔드 응답 기준
-  startTime: string; // 'HH:mm' 형식
-  endTime: string; // 'HH:mm' 형식
-  place: string;
-  imageUrl?: string | null;
-  totalHours: number;
-  content: string;
-}
-
 export const CreateJobPost = () => {
   const navigate = useNavigate();
+  const createJobPostMutate = useCreateJobPost();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<newJobPostInputs>();
+  } = useForm<CreateJobPostInputs>();
 
-  const onSumbit: SubmitHandler<newJobPostInputs> = async (values) => {
+  const onSumbit: SubmitHandler<CreateJobPostInputs> = async (values) => {
     const totalHours = Math.round(
       (parseInt(values.endTime.replace(':', '')) -
         parseInt(values.startTime.replace(':', ''))) /
@@ -43,18 +33,7 @@ export const CreateJobPost = () => {
       imageUrl: null,
     };
 
-    try {
-      const response = await api.post('/job-posts', newPost);
-
-      alert('글 작성이 완료되었습니다.');
-      navigate(paths.app.jobPost.getHref(response.data.identifiers?.[0]?.id), {
-        replace: true,
-      });
-    } catch (error) {
-      alert('글 작성에 실패하였습니다.');
-      console.error(error);
-      navigate(paths.app.jobPosts.getHref(), { replace: true });
-    }
+    createJobPostMutate.mutate({ data: newPost });
   };
 
   return (
