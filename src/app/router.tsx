@@ -1,43 +1,43 @@
 import { paths } from '@/config/paths';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
-// 페이지 컴포넌트들
-import JobPostRoute from '@/app/routes/app/job-posts/[id]';
-import JobPostsRoute from '@/app/routes/app/job-posts';
-import LandingRoute from '@/app/routes/landing';
-import NewJobPostRoute from '@/app/routes/app/job-posts/new';
-import EditJobPostRoute from '@/app/routes/app/job-posts/[id]/edit';
-
 // 레이아웃 래퍼 컴포넌트들
 import MainLayoutWrapper from '@/components/layouts/main-layout-wrapper';
 import FormLayoutWrapper from '@/components/layouts/form-layout-wrapper';
-import AppRoot from '@/app/routes/app/root';
-import HistoryRoute from '@/app/routes/app/history';
-import ProfileRoute from '@/app/routes/app/profile';
 
+import { lazy } from 'react';
+
+const Landing = lazy(() => import('./routes/landing'));
+const Root = lazy(() => import('./routes/app/root'));
+const JobPosts = lazy(() => import('./routes/app/job-posts/index'));
+const JobPost = lazy(() => import('./routes/app/job-posts/[id]/index'));
+const History = lazy(() => import('./routes/app/history/index'));
+const Profile = lazy(() => import('./routes/app/profile/index'));
+const NewJobPost = lazy(() => import('./routes/app/job-posts/new'));
+const EditJobPost = lazy(() => import('./routes/app/job-posts/[id]/edit'));
 export const createAppRouter = () =>
   createBrowserRouter([
     {
       path: paths.home.path,
-      element: <LandingRoute />,
+      element: <Landing />,
     },
     {
       path: paths.app.root.path,
-      element: <AppRoot />,
+      element: <Root />,
       children: [
         {
           element: <MainLayoutWrapper />,
           children: [
             {
               path: paths.app.jobPosts.path,
-              element: <JobPostsRoute />,
+              element: <JobPosts />,
             },
             {
               path: paths.app.jobPost.path,
-              element: <JobPostRoute />,
+              element: <JobPost />,
             },
-            { path: paths.app.history.path, element: <HistoryRoute /> },
-            { path: paths.app.profile.path, element: <ProfileRoute /> },
+            { path: paths.app.history.path, element: <History /> },
+            { path: paths.app.profile.path, element: <Profile /> },
           ],
         },
         {
@@ -45,12 +45,12 @@ export const createAppRouter = () =>
           children: [
             {
               path: paths.app.newJobPost.path,
-              element: <NewJobPostRoute />,
+              element: <NewJobPost />,
             },
 
             {
               path: paths.app.eidtJobPost.path,
-              element: <EditJobPostRoute />,
+              element: <EditJobPost />,
             },
           ],
         },
