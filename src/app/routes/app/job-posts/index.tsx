@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
-
 import { JobPostsList } from '@/features/job-post/components/job-posts-list';
 import { FloatingButton } from '@/components/ui/button/floating-button';
 import plus from '@/assets/icons/plus-white.svg';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
-import { api } from '@/lib/api-client';
 
 export interface JobPost {
   id: number;
@@ -24,28 +21,10 @@ export interface JobPost {
 
 const JobPostsRoute = () => {
   const navigate = useNavigate();
-  const [jobPosts, setJobPosts] = useState<JobPost[]>();
-
-  useEffect(() => {
-    getJobPosts();
-  }, []);
-
-  async function getJobPosts() {
-    const response = await api.get<JobPost[]>('/job-posts');
-
-    if (Array.isArray(response.data)) {
-      // 로컬 서버 사용시 올바른 포트에 요청 보냈는지 확인
-      setJobPosts(response.data);
-    }
-  }
 
   return (
     <div className="relative flex flex-col">
-      {jobPosts ? (
-        <JobPostsList jobPosts={jobPosts} />
-      ) : (
-        <h1>등록된 구직 글이 없습니다.</h1>
-      )}
+      <JobPostsList />
       <FloatingButton
         icon={<img src={plus} />}
         onClick={() => {

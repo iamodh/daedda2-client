@@ -1,13 +1,15 @@
-import type { JobPost } from '@/app/routes/app/job-posts';
 import imagePlaceholder from '@/assets/images/placeholder-image.png';
 import { paths } from '@/config/paths';
+import { useJobPosts } from '@/features/job-post/api/get-job-posts';
 import { formatDateToKoreanShort } from '@/utils/format';
 import { Link } from 'react-router';
 
-interface JobPostsListProps {
-  jobPosts: JobPost[];
-}
-const JobPostsList = ({ jobPosts }: JobPostsListProps) => {
+const JobPostsList = () => {
+  const jobPostsQuery = useJobPosts();
+
+  const jobPosts = jobPostsQuery.data?.data;
+
+  if (!jobPosts) return null;
   return (
     <>
       <ul className="flex flex-col gap-4">
