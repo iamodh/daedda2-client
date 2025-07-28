@@ -3,6 +3,8 @@ import { FloatingButton } from '@/components/ui/button/floating-button';
 import plus from '@/assets/icons/plus-white.svg';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
+import { Suspense } from 'react';
+import { JobPostListsSkeleton } from '@/features/job-post/components/jop-posts-list-skeleton';
 
 export interface JobPost {
   id: number;
@@ -24,7 +26,9 @@ const JobPostsRoute = () => {
 
   return (
     <div className="relative flex flex-col">
-      <JobPostsList />
+      <Suspense fallback={<JobPostListsSkeleton />}>
+        <JobPostsList />
+      </Suspense>
       <FloatingButton
         icon={<img src={plus} />}
         onClick={() => {

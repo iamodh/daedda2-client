@@ -40,7 +40,6 @@ const JobPostsList = () => {
               </div>
               <img
                 src={imagePlaceholder}
-                width="120px"
                 className="rounded-lg md:size-28 size-26"
               />
             </Link>
