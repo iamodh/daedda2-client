@@ -1,4 +1,3 @@
-import type { JobPost } from '@/app/routes/app/job-posts';
 import { Button } from '@/components/ui/button/button';
 import { Dividor } from '@/components/ui/form/dividor';
 import { Input } from '@/components/ui/form/input';
@@ -7,34 +6,38 @@ import { InputImage } from '@/components/ui/form/input-image';
 import type { newJobPostInputs } from '@/features/job-post/components/create-job-post';
 import { useEffect } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router';
-import { paths } from '@/config/paths';
-import { api } from '@/lib/api-client';
+import { useNavigate } from 'react-router';
+import { useJobPost } from '@/features/job-post/api/get-job-post';
+import {
+  useUpdateJobPost,
+  type UpdateJobPostInput,
+} from '@/features/job-post/api/update-job-post';
 
-export const UpdateJobPost = () => {
-  const { jobPostId } = useParams();
+interface UpdateJobPostProps {
+  jobPostId: string;
+}
+
+export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
   const navigate = useNavigate();
+  const jobPostQuery = useJobPost({ jobPostId });
+  const updateJobPostMutation = useUpdateJobPost({ jobPostId });
+
+  const jobPost = jobPostQuery.data?.data;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<newJobPostInputs>();
+  } = useForm<UpdateJobPostInput>();
 
   useEffect(() => {
-    getJobPost();
-  }, []);
-
-  async function getJobPost() {
-    const response = await api.get<JobPost>(`/job-posts/${jobPostId}`);
-
-    if (response.data) {
-      // id, createdAt 안 받음 (수정 필요)
-      const { id, createdAt, ...rest } = response.data;
-      reset({ ...rest, date: response.data.date.slice(0, 10) });
+    if (jobPost) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { id, createdAt, ...rest } = jobPost;
+      reset({ ...rest, date: jobPost?.date.slice(0, 10) });
     }
-  }
+  }, [jobPost]);
 
   const onSumbit: SubmitHandler<newJobPostInputs> = async (values) => {
     const totalHours = Math.round(
@@ -50,23 +53,10 @@ export const UpdateJobPost = () => {
       imageUrl: null,
     };
 
-    if (!jobPostId) {
-      console.error('잘못된 접근입니다.');
-      return;
-    }
-
-    try {
-      await api.patch(`/job-posts/${jobPostId}`, updatedPost);
-
-      navigate(paths.app.jobPost.getHref(parseInt(jobPostId)), {
-        replace: true,
-      });
-      alert('글 수정이 완료되었습니다.');
-    } catch (error) {
-      alert('글 수정에 실패하였습니다.');
-      console.error(error);
-      navigate(paths.app.jobPosts.getHref(), { replace: true });
-    }
+    updateJobPostMutation.mutate({
+      data: updatedPost,
+      jobPostId,
+    });
   };
 
   return (
