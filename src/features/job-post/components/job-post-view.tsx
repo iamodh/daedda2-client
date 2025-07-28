@@ -1,4 +1,3 @@
-import type { JobPost } from '@/app/routes/app/job-posts';
 import { Dividor } from '@/components/ui/form/dividor';
 import userPlaceholder from '@/assets/images/placeholder-user.png';
 import imagePlaceholder from '@/assets/images/placeholder-image.png';
@@ -7,15 +6,25 @@ import { formatDateToKoreanShort } from '@/utils/format';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
 import { DeleteJobPost } from '@/features/job-post/components/delete-job-post';
+import { useJobPost } from '@/features/job-post/api/get-job-post';
 // To Do
 // - 제목 section 반응형 텍스트 크기 조절
 
 interface JobPostViewProps {
-  jobPost: JobPost;
+  jobPostId: string;
 }
 
-const JobPostView = ({ jobPost }: JobPostViewProps) => {
+const JobPostView = ({ jobPostId }: JobPostViewProps) => {
   const navigate = useNavigate();
+  const jobPostQuery = useJobPost({ jobPostId });
+
+  if (jobPostQuery.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const jobPost = jobPostQuery?.data?.data;
+
+  if (!jobPost) return null;
   return (
     <div className="flex flex-col gap-4">
       <section className="flex flex-col gap-4">

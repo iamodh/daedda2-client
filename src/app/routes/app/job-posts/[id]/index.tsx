@@ -11,27 +11,9 @@ import { useParams } from 'react-router';
 const JobPostRoute = () => {
   const { jobPostId } = useParams();
 
-  const [jobPost, setJobPost] = useState<JobPost>();
-  useEffect(() => {
-    getJobPost();
-  }, []);
-
-  async function getJobPost() {
-    const response = await api.get<JobPost>(`/job-posts/${jobPostId}`);
-
-    if (response.data) {
-      setJobPost(response.data);
-    }
-  }
   return (
     <div>
-      {jobPost ? (
-        <div>
-          <JobPostView jobPost={jobPost} />
-        </div>
-      ) : (
-        <div>로딩중...</div>
-      )}
+      <JobPostView jobPostId={jobPostId} />
     </div>
   );
 };
