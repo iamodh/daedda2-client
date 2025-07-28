@@ -19,6 +19,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    pageTitle: '페이지 타이틀',
+    title: '페이지 타이틀',
   },
 };
