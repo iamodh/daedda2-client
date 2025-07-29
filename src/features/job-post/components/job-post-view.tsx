@@ -18,7 +18,7 @@ const JobPostView = ({ jobPostId }: JobPostViewProps) => {
   const navigate = useNavigate();
   const jobPostQuery = useJobPost({ jobPostId });
 
-  const jobPost = jobPostQuery?.data?.data;
+  const jobPost = jobPostQuery?.data;
 
   if (!jobPost) return null;
   return (

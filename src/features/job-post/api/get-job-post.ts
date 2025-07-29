@@ -6,7 +6,7 @@ export const getJobPost = ({
   jobPostId,
 }: {
   jobPostId: string;
-}): Promise<{ data: JobPost }> => {
+}): Promise<JobPost> => {
   return api.get(`/job-posts/${jobPostId}`);
   //   return new Promise((resolve) => {
   //     setTimeout(async () => {

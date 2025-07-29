@@ -21,7 +21,7 @@ export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
   const jobPostQuery = useJobPost({ jobPostId });
   const updateJobPostMutation = useUpdateJobPost({ jobPostId });
 
-  const jobPost = jobPostQuery.data?.data;
+  const jobPost = jobPostQuery.data;
 
   const {
     register,
