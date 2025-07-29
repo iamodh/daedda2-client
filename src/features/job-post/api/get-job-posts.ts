@@ -1,24 +1,34 @@
 import type { JobPost } from '@/app/routes/app/job-posts';
 import { api } from '@/lib/api-client';
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  infiniteQueryOptions,
+  useSuspenseInfiniteQuery,
+} from '@tanstack/react-query';
 
-export const getJobPosts = (): Promise<{ data: JobPost[] }> => {
-  return api.get('/job-posts');
-  //   return new Promise((resolve) => {
-  //     setTimeout(async () => {
-  //       const response = await api.get('./job-posts');
-  //       resolve(response);
-  //     }, 2000);
-  //   });
-};
-
-export const getJobPostsQueryOptions = () => {
-  return queryOptions({
-    queryKey: ['job-posts'],
-    queryFn: getJobPosts,
+export const getJobPosts = async ({
+  pageParam,
+  limit = 5,
+}: {
+  pageParam: string;
+  limit: number;
+}): Promise<{
+  data: JobPost[];
+  nextCursor: string | null;
+}> => {
+  return await api.get('/job-posts', {
+    params: { cursor: pageParam, limit },
   });
 };
 
-export const useJobPosts = () => {
-  return useSuspenseQuery(getJobPostsQueryOptions());
+export const getInfiniteJobPostsQueryOptions = (limit = 5) => {
+  return infiniteQueryOptions({
+    queryKey: ['job-posts'],
+    queryFn: ({ pageParam }) => getJobPosts({ pageParam, limit }),
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+    initialPageParam: '',
+  });
+};
+
+export const useInfiniteJobPosts = (limit = 5) => {
+  return useSuspenseInfiniteQuery(getInfiniteJobPostsQueryOptions(limit));
 };

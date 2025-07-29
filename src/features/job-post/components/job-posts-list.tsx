@@ -1,13 +1,15 @@
 import imagePlaceholder from '@/assets/images/placeholder-image.png';
+import { Button } from '@/components/ui/button';
 import { paths } from '@/config/paths';
-import { useJobPosts } from '@/features/job-post/api/get-job-posts';
+import { useInfiniteJobPosts } from '@/features/job-post/api/get-job-posts';
 import { formatDateToKoreanShort } from '@/utils/format';
 import { Link } from 'react-router';
 
 const JobPostsList = () => {
-  const jobPostsQuery = useJobPosts();
+  const jobPostsQuery = useInfiniteJobPosts();
 
-  const jobPosts = jobPostsQuery.data?.data;
+  const jobPosts = jobPostsQuery.data?.pages.flatMap((page) => page.data);
+  console.log(jobPostsQuery.data?.pages);
 
   if (!jobPosts) return null;
   return (
@@ -46,6 +48,11 @@ const JobPostsList = () => {
           </li>
         ))}
       </ul>
+      {jobPostsQuery.hasNextPage && (
+        <Button onClick={() => jobPostsQuery.fetchNextPage()}>
+          더 불러오기
+        </Button>
+      )}
     </>
   );
 };
