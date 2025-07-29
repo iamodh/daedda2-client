@@ -1,7 +1,8 @@
 import imagePlaceholder from '@/assets/images/placeholder-image.png';
-import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 import { paths } from '@/config/paths';
 import { useInfiniteJobPosts } from '@/features/job-post/api/get-job-posts';
+import { useIntersectionObserver } from '@/lib/pagination';
 import { formatDateToKoreanShort } from '@/utils/format';
 import { Link } from 'react-router';
 
@@ -9,7 +10,21 @@ const JobPostsList = () => {
   const jobPostsQuery = useInfiniteJobPosts();
 
   const jobPosts = jobPostsQuery.data?.pages.flatMap((page) => page.data);
-  console.log(jobPostsQuery.data?.pages);
+
+  const onIntersect: IntersectionObserverCallback = ([entry], observer) => {
+    if (entry.isIntersecting && !jobPostsQuery.isFetchingNextPage) {
+      observer.unobserve(entry.target);
+      jobPostsQuery.fetchNextPage();
+      observer.observe(entry.target);
+    }
+  };
+
+  const { setTarget } = useIntersectionObserver({
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5,
+    onIntersect,
+  });
 
   if (!jobPosts) return null;
   return (
@@ -48,11 +63,11 @@ const JobPostsList = () => {
           </li>
         ))}
       </ul>
-      {jobPostsQuery.hasNextPage && (
-        <Button onClick={() => jobPostsQuery.fetchNextPage()}>
-          더 불러오기
-        </Button>
-      )}
+      <div ref={setTarget} className="flex justify-center">
+        {jobPostsQuery.isFetchingNextPage && (
+          <Spinner size="md" className="my-8" />
+        )}
+      </div>
     </>
   );
 };
