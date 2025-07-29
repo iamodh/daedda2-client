@@ -8,6 +8,12 @@ export const getJobPost = ({
   jobPostId: string;
 }): Promise<{ data: JobPost }> => {
   return api.get(`/job-posts/${jobPostId}`);
+  //   return new Promise((resolve) => {
+  //     setTimeout(async () => {
+  //       const response = await api.get(`./job-posts/${jobPostId}`);
+  //       resolve(response);
+  //     }, 10000);
+  //   });
 };
 
 export const getJobPostQueryOptions = (jobPostId: string) => {

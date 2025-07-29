@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
 import { DeleteJobPost } from '@/features/job-post/components/delete-job-post';
 import { useJobPost } from '@/features/job-post/api/get-job-post';
+import spinner from '@/assets/icons/spinner.svg';
 // To Do
 // - 제목 section 반응형 텍스트 크기 조절
 
@@ -19,7 +20,11 @@ const JobPostView = ({ jobPostId }: JobPostViewProps) => {
   const jobPostQuery = useJobPost({ jobPostId });
 
   if (jobPostQuery.isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-full flex justify-center items-center">
+        <img src={spinner} className="size-10 animate-spin" />
+      </div>
+    );
   }
 
   const jobPost = jobPostQuery?.data?.data;

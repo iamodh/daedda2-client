@@ -10,9 +10,9 @@ const JobPostRoute = () => {
   const params = useParams();
   const jobPostId = params.jobPostId as string;
   return (
-    <div>
+    <>
       <JobPostView jobPostId={jobPostId} />
-    </div>
+    </>
   );
 };
 
