@@ -1,6 +1,6 @@
 import type { JobPost } from '@/app/routes/app/job-posts';
 import { api } from '@/lib/api-client';
-import { queryOptions, useQuery } from '@tanstack/react-query';
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 export const getJobPost = ({
   jobPostId,
@@ -12,7 +12,7 @@ export const getJobPost = ({
   //     setTimeout(async () => {
   //       const response = await api.get(`./job-posts/${jobPostId}`);
   //       resolve(response);
-  //     }, 10000);
+  //     }, 5000);
   //   });
 };
 
@@ -24,5 +24,5 @@ export const getJobPostQueryOptions = (jobPostId: string) => {
 };
 
 export const useJobPost = ({ jobPostId }: { jobPostId: string }) => {
-  return useQuery(getJobPostQueryOptions(jobPostId));
+  return useSuspenseQuery(getJobPostQueryOptions(jobPostId));
 };

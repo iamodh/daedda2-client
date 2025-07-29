@@ -4,7 +4,7 @@ import plus from '@/assets/icons/plus-white.svg';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
 import { Suspense } from 'react';
-import { JobPostListsSkeleton } from '@/features/job-post/components/jop-posts-list-skeleton';
+import { JobPostListsSkeleton } from '@/features/job-post/components/job-posts-list-skeleton';
 
 export interface JobPost {
   id: number;

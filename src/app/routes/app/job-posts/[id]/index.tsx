@@ -1,4 +1,6 @@
 import { JobPostView } from '@/features/job-post/components/job-post-view';
+import { JobPostViewSkeleton } from '@/features/job-post/components/job-post-view-skeleton';
+import { Suspense } from 'react';
 
 import { useParams } from 'react-router';
 
@@ -11,7 +13,9 @@ const JobPostRoute = () => {
   const jobPostId = params.jobPostId as string;
   return (
     <>
-      <JobPostView jobPostId={jobPostId} />
+      <Suspense fallback={<JobPostViewSkeleton />}>
+        <JobPostView jobPostId={jobPostId} />
+      </Suspense>
     </>
   );
 };
