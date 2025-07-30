@@ -17,7 +17,6 @@ export const getJobPosts = async ({
   data: JobPost[];
   nextCursor: string | null;
 }> => {
-  console.log('getJobPosts: ', searchKeyword);
   return await api.get('/job-posts', {
     params: { cursor: pageParam, limit, searchKeyword },
   });
@@ -34,7 +33,6 @@ export const getInfiniteJobPostsQueryOptions = (
     queryFn: ({ pageParam }) =>
       getJobPosts({ pageParam, limit, searchKeyword }),
     getNextPageParam: (lastPage) => {
-      console.log(lastPage.nextCursor);
       return lastPage.nextCursor ?? undefined;
     },
     initialPageParam: '',

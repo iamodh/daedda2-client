@@ -5,10 +5,10 @@ export const api = axios.create({
 });
 
 api.interceptors.response.use((response) => {
-  //   return response.data;
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(response.data);
-    }, 2000);
-  });
+  return response.data;
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       resolve(response.data);
+  //     }, 2000);
+  //   });
 });

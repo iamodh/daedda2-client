@@ -6,7 +6,6 @@ interface DeleteJobPostProps {
 }
 export const DeleteJobPost = ({ jobPostId }: DeleteJobPostProps) => {
   const deleteJobPostMutation = useDeleteJobPost();
-  console.log(jobPostId);
   return (
     <Button
       onClick={() => deleteJobPostMutation.mutate({ jobPostId })}

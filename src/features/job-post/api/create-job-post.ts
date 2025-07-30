@@ -6,7 +6,11 @@ import { useNavigate } from 'react-router';
 
 export type CreateJobPostInputs = Omit<JobPost, 'id' | 'createdAt'>;
 
-export const createJobPost = ({ data }: { data: CreateJobPostInputs }) => {
+export const createJobPost = ({
+  data,
+}: {
+  data: CreateJobPostInputs;
+}): Promise<{ identifiers: { id: number }[] }> => {
   return api.post('/job-posts', data);
 };
 
@@ -15,10 +19,10 @@ export const useCreateJobPost = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createJobPost,
-    onSuccess: (data) => {
+    onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ['job-posts'] });
       alert('글 작성이 완료되었습니다.');
-      navigate(paths.app.jobPost.getHref(data.data.identifiers?.[0]?.id), {
+      navigate(paths.app.jobPost.getHref(response.identifiers?.[0]?.id), {
         replace: true,
       });
     },

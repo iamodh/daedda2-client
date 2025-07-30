@@ -6,15 +6,25 @@ import { useIntersectionObserver } from '@/lib/pagination';
 import { formatDateToKoreanShort } from '@/utils/format';
 import { Link } from 'react-router';
 
-const JobPostsList = () => {
-  const jobPostsQuery = useInfiniteJobPosts();
+interface JobPostListProps {
+  searchKeyword?: string;
+}
+const JobPostsList = ({ searchKeyword }: JobPostListProps) => {
+  const jobPostsQuery = useInfiniteJobPosts(5, searchKeyword);
 
   const jobPosts = jobPostsQuery.data?.pages.flatMap((page) => page.data);
 
-  const onIntersect: IntersectionObserverCallback = ([entry], observer) => {
-    if (entry.isIntersecting && !jobPostsQuery.isFetchingNextPage) {
+  const onIntersect: IntersectionObserverCallback = async (
+    [entry],
+    observer
+  ) => {
+    if (
+      entry.isIntersecting &&
+      jobPostsQuery.hasNextPage &&
+      !jobPostsQuery.isFetchingNextPage
+    ) {
       observer.unobserve(entry.target);
-      jobPostsQuery.fetchNextPage();
+      await jobPostsQuery.fetchNextPage();
       observer.observe(entry.target);
     }
   };
@@ -27,6 +37,7 @@ const JobPostsList = () => {
   });
 
   if (!jobPosts) return null;
+
   return (
     <>
       <ul className="flex flex-col gap-4">
@@ -63,11 +74,13 @@ const JobPostsList = () => {
           </li>
         ))}
       </ul>
-      <div ref={setTarget} className="flex justify-center">
-        {jobPostsQuery.isFetchingNextPage && (
-          <Spinner size="md" className="my-8" />
-        )}
-      </div>
+      {jobPostsQuery.hasNextPage && (
+        <div ref={setTarget} className="flex justify-center">
+          {jobPostsQuery.isFetchingNextPage && (
+            <Spinner size="md" className="my-8" />
+          )}
+        </div>
+      )}
     </>
   );
 };
