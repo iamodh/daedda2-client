@@ -25,9 +25,14 @@ export interface JobPost {
 const JobPostsRoute = () => {
   const navigate = useNavigate();
   const [searchKeyword, setSearchKeyword] = useState('');
+
+  const onSearchClick = (input: string) => {
+    setSearchKeyword(input);
+  };
+
   return (
     <div className="relative flex flex-col gap-4">
-      <SearchBar setSearchKeyword={setSearchKeyword} />
+      <SearchBar onSearchClick={onSearchClick} />
       <Suspense fallback={<JobPostListsSkeleton />}>
         <JobPostsList searchKeyword={searchKeyword} />
       </Suspense>
