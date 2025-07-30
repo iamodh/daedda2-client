@@ -3,8 +3,9 @@ import { FloatingButton } from '@/components/ui/button/floating-button';
 import plus from '@/assets/icons/plus-white.svg';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import { JobPostListsSkeleton } from '@/features/job-post/components/job-posts-list-skeleton';
+import { SearchBar } from '@/components/ui/form/search-bar';
 
 export interface JobPost {
   id: number;
@@ -23,11 +24,12 @@ export interface JobPost {
 
 const JobPostsRoute = () => {
   const navigate = useNavigate();
-
+  const [searchKeyword, setSearchKeyword] = useState('');
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col gap-4">
+      <SearchBar setSearchKeyword={setSearchKeyword} />
       <Suspense fallback={<JobPostListsSkeleton />}>
-        <JobPostsList />
+        <JobPostsList searchKeyword={searchKeyword} />
       </Suspense>
       <FloatingButton
         icon={<img src={plus} />}

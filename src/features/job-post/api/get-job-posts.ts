@@ -8,27 +8,41 @@ import {
 export const getJobPosts = async ({
   pageParam,
   limit = 5,
+  searchKeyword,
 }: {
   pageParam: string;
   limit: number;
+  searchKeyword?: string;
 }): Promise<{
   data: JobPost[];
   nextCursor: string | null;
 }> => {
+  console.log('getJobPosts: ', searchKeyword);
   return await api.get('/job-posts', {
-    params: { cursor: pageParam, limit },
+    params: { cursor: pageParam, limit, searchKeyword },
   });
 };
 
-export const getInfiniteJobPostsQueryOptions = (limit = 5) => {
+export const getInfiniteJobPostsQueryOptions = (
+  limit: number,
+  searchKeyword?: string
+) => {
   return infiniteQueryOptions({
-    queryKey: ['job-posts'],
-    queryFn: ({ pageParam }) => getJobPosts({ pageParam, limit }),
-    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+    queryKey: searchKeyword?.trim()
+      ? ['job-posts', searchKeyword]
+      : ['job-posts'],
+    queryFn: ({ pageParam }) =>
+      getJobPosts({ pageParam, limit, searchKeyword }),
+    getNextPageParam: (lastPage) => {
+      console.log(lastPage.nextCursor);
+      return lastPage.nextCursor ?? undefined;
+    },
     initialPageParam: '',
   });
 };
 
-export const useInfiniteJobPosts = (limit = 5) => {
-  return useSuspenseInfiniteQuery(getInfiniteJobPostsQueryOptions(limit));
+export const useInfiniteJobPosts = (limit = 5, searchKeyword?: string) => {
+  return useSuspenseInfiniteQuery(
+    getInfiniteJobPostsQueryOptions(limit, searchKeyword)
+  );
 };
