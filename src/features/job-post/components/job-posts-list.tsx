@@ -1,3 +1,7 @@
+import type {
+  FiltersState,
+  SearchKeywordState,
+} from '@/app/routes/app/job-posts';
 import imagePlaceholder from '@/assets/images/placeholder-image.png';
 import { Spinner } from '@/components/ui/spinner';
 import { paths } from '@/config/paths';
@@ -7,10 +11,11 @@ import { formatDateToKoreanShort } from '@/utils/format';
 import { Link } from 'react-router';
 
 interface JobPostListProps {
-  searchKeyword?: string;
+  searchKeyword?: SearchKeywordState;
+  filters?: FiltersState;
 }
-const JobPostsList = ({ searchKeyword }: JobPostListProps) => {
-  const jobPostsQuery = useInfiniteJobPosts(5, searchKeyword);
+const JobPostsList = ({ searchKeyword, filters }: JobPostListProps) => {
+  const jobPostsQuery = useInfiniteJobPosts(5, searchKeyword, filters);
 
   const jobPosts = jobPostsQuery.data?.pages.flatMap((page) => page.data);
 
@@ -45,6 +50,7 @@ const JobPostsList = ({ searchKeyword }: JobPostListProps) => {
       </div>
     );
   }
+  console.log('rerender');
   return (
     <>
       <ul className="flex flex-col gap-4">
@@ -81,7 +87,10 @@ const JobPostsList = ({ searchKeyword }: JobPostListProps) => {
           </li>
         ))}
       </ul>
-      {jobPostsQuery.hasNextPage && (
+      {jobPostsQuery.hasNextPage && !jobPostsQuery.isFetchingNextPage && (
+        <div ref={setTarget}>LOADING</div>
+      )}
+      {jobPostsQuery.isFetchingNextPage && (
         <div ref={setTarget} className="flex justify-center">
           {jobPostsQuery.isFetchingNextPage && (
             <Spinner size="md" className="my-8" />
