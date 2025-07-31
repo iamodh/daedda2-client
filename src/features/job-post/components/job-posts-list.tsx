@@ -13,9 +13,19 @@ import { Link } from 'react-router';
 interface JobPostListProps {
   searchKeyword?: SearchKeywordState;
   filters?: FiltersState;
+  showPast: boolean;
 }
-const JobPostsList = ({ searchKeyword, filters }: JobPostListProps) => {
-  const jobPostsQuery = useInfiniteJobPosts(5, searchKeyword, filters);
+const JobPostsList = ({
+  searchKeyword,
+  filters,
+  showPast,
+}: JobPostListProps) => {
+  const jobPostsQuery = useInfiniteJobPosts(
+    5,
+    searchKeyword,
+    filters,
+    showPast
+  );
 
   const jobPosts = jobPostsQuery.data?.pages.flatMap((page) => page.data);
 

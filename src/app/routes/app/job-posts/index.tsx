@@ -7,6 +7,7 @@ import { Suspense, useState } from 'react';
 import { JobPostListsSkeleton } from '@/features/job-post/components/job-posts-list-skeleton';
 import { SearchBar } from '@/components/ui/form/search-bar';
 import { Dropdown } from '@/components/ui/dropdown';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export interface JobPost {
   id: number;
@@ -48,43 +49,58 @@ const JobPostsRoute = () => {
   const navigate = useNavigate();
   const [searchKeyword, setSearchKeyword] = useState<SearchKeywordState>(null);
 
+  const handleSearchClick = (input: SearchKeywordState) => {
+    setSearchKeyword(input);
+  };
+
   const [filters, setFilters] = useState<FiltersState>({
     workTime: null,
     hourlyWage: null,
   });
 
-  const handleSearchClick = (input: SearchKeywordState) => {
-    setSearchKeyword(input);
-  };
-
   const handleFilterChange = (key: FilterKey, value: FilterValue) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
+
+  const [showPast, setShowPast] = useState(false);
 
   return (
     <div className="relative flex flex-col">
       <div className="flex flex-col gap-2 mb-3">
         <SearchBar onClick={handleSearchClick} />
-        <div className="flex gap-2">
-          <Dropdown
-            title="근무 시간"
-            name="workTime"
-            value={filters.workTime}
-            onChange={handleFilterChange}
-            options={filterOptions.workTime}
-          />
-          <Dropdown
-            title="시간당 급여"
-            name="hourlyWage"
-            value={filters.hourlyWage}
-            onChange={handleFilterChange}
-            options={filterOptions.hourlyWage}
-            size="lg"
-          />
+        <div className="flex justify-between">
+          <div className="flex gap-2">
+            <Dropdown
+              title="근무 시간"
+              name="workTime"
+              value={filters.workTime}
+              onChange={handleFilterChange}
+              options={filterOptions.workTime}
+            />
+            <Dropdown
+              title="시간당 급여"
+              name="hourlyWage"
+              value={filters.hourlyWage}
+              onChange={handleFilterChange}
+              options={filterOptions.hourlyWage}
+              size="lg"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="show-past"
+              onCheckedChange={() => setShowPast((prev) => !prev)}
+            />
+            <label htmlFor="show-past">지난 공고 보이기</label>
+          </div>
         </div>
       </div>
       <Suspense fallback={<JobPostListsSkeleton />}>
-        <JobPostsList searchKeyword={searchKeyword} filters={filters} />
+        <JobPostsList
+          searchKeyword={searchKeyword}
+          filters={filters}
+          showPast={showPast}
+        />
       </Suspense>
       <FloatingButton
         icon={<img src={plus} />}
