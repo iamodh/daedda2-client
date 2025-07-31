@@ -9,6 +9,6 @@ api.interceptors.response.use((response) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(response.data);
-    }, 2000);
+    }, 1000);
   });
 });

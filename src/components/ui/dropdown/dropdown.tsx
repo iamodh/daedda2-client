@@ -46,10 +46,16 @@ const Dropdown = ({
   };
 
   return (
-    <div ref={dropdownRef} className={cn('relative text-md z-10', sizes[size])}>
+    <div
+      ref={dropdownRef}
+      className={cn(
+        'relative text-md z-10 md:text-[1rem] text-sm',
+        sizes[size]
+      )}
+    >
       <button
         className={cn(
-          'w-full p-0.5 border-slate-400 border-2 rounded-lg cursor-pointer',
+          'w-full p-0.5 border-slate-400 border-2 rounded-lg cursor-pointer ',
           isOpen && 'rounded-b-none border-indigo-500'
         )}
         onClick={() => setIsOpen((prev) => !prev)}

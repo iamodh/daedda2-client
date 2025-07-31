@@ -114,7 +114,9 @@ const JobPostsRoute = () => {
               id="show-past"
               onCheckedChange={() => handleCheckedChange()}
             />
-            <label htmlFor="show-past">지난 공고 보이기</label>
+            <label htmlFor="show-past" className="text-sm md:text-[1rem]">
+              지난 공고 보이기
+            </label>
           </div>
         </div>
       </div>
