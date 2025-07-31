@@ -1,4 +1,8 @@
-import type { JobPost } from '@/app/routes/app/job-posts';
+import type {
+  FiltersState,
+  JobPost,
+  SearchKeywordState,
+} from '@/app/routes/app/job-posts';
 import { api } from '@/lib/api-client';
 import {
   infiniteQueryOptions,
@@ -9,29 +13,37 @@ export const getJobPosts = async ({
   pageParam,
   limit = 5,
   searchKeyword,
+  filters,
 }: {
   pageParam: string;
   limit: number;
-  searchKeyword?: string;
+  searchKeyword?: SearchKeywordState;
+  filters?: FiltersState;
 }): Promise<{
   data: JobPost[];
   nextCursor: string | null;
 }> => {
   return await api.get('/job-posts', {
-    params: { cursor: pageParam, limit, searchKeyword },
+    params: {
+      cursor: pageParam ? pageParam : null,
+      limit,
+      searchKeyword,
+      ...filters,
+    },
   });
 };
 
 export const getInfiniteJobPostsQueryOptions = (
   limit: number,
-  searchKeyword?: string
+  searchKeyword?: SearchKeywordState,
+  filters?: FiltersState
 ) => {
   return infiniteQueryOptions({
     queryKey: searchKeyword?.trim()
       ? ['job-posts', searchKeyword]
       : ['job-posts'],
     queryFn: ({ pageParam }) =>
-      getJobPosts({ pageParam, limit, searchKeyword }),
+      getJobPosts({ pageParam, limit, searchKeyword, filters }),
     getNextPageParam: (lastPage) => {
       return lastPage.nextCursor ?? undefined;
     },
@@ -39,8 +51,12 @@ export const getInfiniteJobPostsQueryOptions = (
   });
 };
 
-export const useInfiniteJobPosts = (limit = 5, searchKeyword?: string) => {
+export const useInfiniteJobPosts = (
+  limit = 5,
+  searchKeyword?: SearchKeywordState,
+  filters?: FiltersState
+) => {
   return useSuspenseInfiniteQuery(
-    getInfiniteJobPostsQueryOptions(limit, searchKeyword)
+    getInfiniteJobPostsQueryOptions(limit, searchKeyword, filters)
   );
 };

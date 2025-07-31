@@ -6,7 +6,7 @@ import { paths } from '@/config/paths';
 import { Suspense, useState } from 'react';
 import { JobPostListsSkeleton } from '@/features/job-post/components/job-posts-list-skeleton';
 import { SearchBar } from '@/components/ui/form/search-bar';
-import { Dropdown } from '@/components/ui/dropdown/dropdown';
+import { Dropdown } from '@/components/ui/dropdown';
 
 export interface JobPost {
   id: number;
@@ -24,40 +24,45 @@ export interface JobPost {
 }
 
 export type FilterKey = 'workTime' | 'pay';
+export type FilterValue = string | null;
+export type FiltersState = Record<FilterKey, FilterValue>;
+
 const filterOptions = {
   workTime: [
-    { name: '초기화', value: 'default' },
+    { name: '초기화', value: null },
     { name: '0~4시간', value: 'short' },
     { name: '4~8시간', value: 'medium' },
     { name: '8시간 초과', value: 'long' },
   ],
   pay: [
-    { name: '초기화', value: 'default' },
+    { name: '초기화', value: null },
     { name: '10,000원 이하', value: 'low' },
     { name: '10,000원 초과', value: 'high' },
   ],
 };
 
+export type SearchKeywordState = string | null;
+
 const JobPostsRoute = () => {
   const navigate = useNavigate();
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState<SearchKeywordState>(null);
 
-  const [filters, setFilters] = useState({
-    workTime: 'default',
-    pay: 'default',
+  const [filters, setFilters] = useState<FiltersState>({
+    workTime: null,
+    pay: null,
   });
 
-  const handleSearchClick = (input: string) => {
+  const handleSearchClick = (input: SearchKeywordState) => {
     setSearchKeyword(input);
   };
 
-  const handleFilterChange = (key: FilterKey, value: string) => {
+  const handleFilterChange = (key: FilterKey, value: FilterValue) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
-    <div className="relative flex flex-col gap-3 h-full">
-      <div className="flex flex-col gap-2">
+    <div className="relative flex flex-col">
+      <div className="flex flex-col gap-2 mb-3">
         <SearchBar onClick={handleSearchClick} />
         <div className="flex gap-2">
           <Dropdown
@@ -78,7 +83,7 @@ const JobPostsRoute = () => {
         </div>
       </div>
       <Suspense fallback={<JobPostListsSkeleton />}>
-        <JobPostsList searchKeyword={searchKeyword} />
+        <JobPostsList searchKeyword={searchKeyword} filters={filters} />
       </Suspense>
       <FloatingButton
         icon={<img src={plus} />}

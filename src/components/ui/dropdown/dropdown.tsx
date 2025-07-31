@@ -1,4 +1,4 @@
-import type { FilterKey } from '@/app/routes/app/job-posts';
+import type { FilterKey, FilterValue } from '@/app/routes/app/job-posts';
 import useModalDismiss from '@/lib/modal';
 import { cn } from '@/utils/cn';
 import { useRef, useState } from 'react';
@@ -11,16 +11,16 @@ const sizes = {
 
 interface DropdownOption {
   name: string;
-  value: string;
+  value: FilterValue;
 }
 
 interface DropdownProprs {
   title: string;
   size?: 'sm' | 'md' | 'lg';
   options: DropdownOption[];
-  value: string;
+  value: FilterValue;
   name: FilterKey;
-  onChange: (key: FilterKey, value: string) => void;
+  onChange: (key: FilterKey, value: FilterValue) => void;
 }
 
 const Dropdown = ({
@@ -40,7 +40,7 @@ const Dropdown = ({
   const selectedOption =
     options.find((option) => option.value === value) || options[0];
 
-  const handleOptionClick = (optionValue: string) => {
+  const handleOptionClick = (optionValue: FilterValue) => {
     onChange(name, optionValue);
     setIsOpen(false);
   };
@@ -55,7 +55,7 @@ const Dropdown = ({
         onClick={() => setIsOpen((prev) => !prev)}
         type="button"
       >
-        {selectedOption.value === 'default' ? title : selectedOption.name}
+        {selectedOption.value === null ? title : selectedOption.name}
       </button>
       <ul
         className={cn(
