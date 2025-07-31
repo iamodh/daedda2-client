@@ -4,7 +4,10 @@ import { api } from '@/lib/api-client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 
-export type CreateJobPostInputs = Omit<JobPost, 'id' | 'createdAt'>;
+export type CreateJobPostInputs = Omit<
+  JobPost,
+  'id' | 'createdAt' | 'hourlyWage'
+>;
 
 export const createJobPost = ({
   data,

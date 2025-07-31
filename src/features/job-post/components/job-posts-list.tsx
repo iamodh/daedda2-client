@@ -50,7 +50,6 @@ const JobPostsList = ({ searchKeyword, filters }: JobPostListProps) => {
       </div>
     );
   }
-  console.log('rerender');
   return (
     <>
       <ul className="flex flex-col gap-4">
@@ -69,10 +68,7 @@ const JobPostsList = ({ searchKeyword, filters }: JobPostListProps) => {
                 </p>
                 <p className="font-bold md:text-lg text-pirmary-500">
                   {jobPost.pay.toLocaleString()}원ㆍ시급{' '}
-                  {parseInt(
-                    (jobPost.pay / jobPost.totalHours).toFixed(0)
-                  ).toLocaleString()}
-                  원
+                  {jobPost.hourlyWage.toLocaleString()}원
                 </p>
                 <p className="font-semibold  md:text-sm text-xs text-slate-700">
                   {formatDateToKoreanShort(jobPost.date)}ㆍ{jobPost.startTime} ~{' '}

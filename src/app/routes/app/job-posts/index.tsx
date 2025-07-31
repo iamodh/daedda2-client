@@ -21,6 +21,7 @@ export interface JobPost {
   imageUrl: string | null;
   createdAt: string; // ISO 문자열 (e.g., '2025-07-15T19:55:00.000Z')
   content: string;
+  hourlyWage: number;
 }
 
 export type FilterKey = 'workTime' | 'pay';
