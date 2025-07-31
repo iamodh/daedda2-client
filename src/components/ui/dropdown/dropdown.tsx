@@ -1,3 +1,4 @@
+import type { FilterKey } from '@/app/routes/app/job-posts';
 import useModalDismiss from '@/lib/modal';
 import { cn } from '@/utils/cn';
 import { useRef, useState } from 'react';
@@ -18,16 +19,21 @@ interface DropdownProprs {
   size?: 'sm' | 'md' | 'lg';
   options: DropdownOption[];
   value: string;
-  onChange: (value: string) => void;
+  name: FilterKey;
+  onChange: (key: FilterKey, value: string) => void;
 }
+
 const Dropdown = ({
   title,
   options,
   size = 'md',
   value,
+  name,
   onChange,
 }: DropdownProprs) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // 외부 클릭시 닫힘
   const dropdownRef = useRef<HTMLDivElement>(null);
   useModalDismiss(dropdownRef, () => setIsOpen(false));
 
@@ -35,7 +41,7 @@ const Dropdown = ({
     options.find((option) => option.value === value) || options[0];
 
   const handleOptionClick = (optionValue: string) => {
-    onChange(optionValue);
+    onChange(name, optionValue);
     setIsOpen(false);
   };
 

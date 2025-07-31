@@ -23,45 +23,56 @@ export interface JobPost {
   content: string;
 }
 
-const workTimeOptions = [
-  { name: '초기화', value: 'default' },
-  { name: '0~4시간', value: 'short' },
-  { name: '4~8시간', value: 'medium' },
-  { name: '8시간 초과', value: 'long' },
-];
-const payOptions = [
-  { name: '초기화', value: 'default' },
-  { name: '10,000원 이하', value: 'low' },
-  { name: '10,000원 초과', value: 'high' },
-];
+export type FilterKey = 'workTime' | 'pay';
+const filterOptions = {
+  workTime: [
+    { name: '초기화', value: 'default' },
+    { name: '0~4시간', value: 'short' },
+    { name: '4~8시간', value: 'medium' },
+    { name: '8시간 초과', value: 'long' },
+  ],
+  pay: [
+    { name: '초기화', value: 'default' },
+    { name: '10,000원 이하', value: 'low' },
+    { name: '10,000원 초과', value: 'high' },
+  ],
+};
 
 const JobPostsRoute = () => {
   const navigate = useNavigate();
   const [searchKeyword, setSearchKeyword] = useState('');
 
-  const [workTime, setWorkTime] = useState('default');
-  const [pay, setPay] = useState('default');
+  const [filters, setFilters] = useState({
+    workTime: 'default',
+    pay: 'default',
+  });
 
-  const onSearchClick = (input: string) => {
+  const handleSearchClick = (input: string) => {
     setSearchKeyword(input);
   };
 
+  const handleFilterChange = (key: FilterKey, value: string) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  };
+
   return (
-    <div className="relative flex flex-col gap-3">
+    <div className="relative flex flex-col gap-3 h-full">
       <div className="flex flex-col gap-2">
-        <SearchBar onSearchClick={onSearchClick} />
+        <SearchBar onClick={handleSearchClick} />
         <div className="flex gap-2">
           <Dropdown
             title="근무 시간"
-            value={workTime}
-            onChange={setWorkTime}
-            options={workTimeOptions}
+            name="workTime"
+            value={filters.workTime}
+            onChange={handleFilterChange}
+            options={filterOptions.workTime}
           />
           <Dropdown
             title="시간당 급여"
-            value={pay}
-            onChange={setPay}
-            options={payOptions}
+            name="pay"
+            value={filters.pay}
+            onChange={handleFilterChange}
+            options={filterOptions.pay}
             size="lg"
           />
         </div>
