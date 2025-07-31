@@ -50,6 +50,7 @@ export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
       location: '경남 김해시 대청동',
       totalHours,
       imageUrl: null,
+      hourlyWage: parseInt((values.pay / totalHours).toFixed(0)),
     };
 
     updateJobPostMutation.mutate({
