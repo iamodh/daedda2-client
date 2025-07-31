@@ -1,18 +1,18 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import search from '@/assets/icons/search.svg';
-interface SearchBarProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  onSearchClick: (value: string) => void;
+interface SearchBarProps {
+  onClick: (value: string) => void;
 }
 
 interface SearchBarInputs {
   searchKeyword: string;
 }
 
-const SearchBar = ({ onSearchClick, ...props }: SearchBarProps) => {
+const SearchBar = ({ onClick, ...props }: SearchBarProps) => {
   const { register, handleSubmit } = useForm<SearchBarInputs>();
 
   const onSubmit: SubmitHandler<SearchBarInputs> = (values) => {
-    onSearchClick(values.searchKeyword);
+    onClick(values.searchKeyword);
   };
 
   return (

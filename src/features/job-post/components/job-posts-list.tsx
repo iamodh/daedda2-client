@@ -38,6 +38,13 @@ const JobPostsList = ({ searchKeyword }: JobPostListProps) => {
 
   if (!jobPosts) return null;
 
+  if (jobPosts.length === 0) {
+    return (
+      <div className="text-slate-800 text-lg">
+        검색 결과가 존재하지 않습니다.
+      </div>
+    );
+  }
   return (
     <>
       <ul className="flex flex-col gap-4">

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 
 const ActionsData = {
-  onSearchClick: fn(),
+  onClick: fn(),
 };
 
 const meta = {
