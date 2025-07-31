@@ -1,7 +1,7 @@
 import { JobPostsList } from '@/features/job-post/components/job-posts-list';
 import { FloatingButton } from '@/components/ui/button/floating-button';
 import plus from '@/assets/icons/plus-white.svg';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { paths } from '@/config/paths';
 import { Suspense, useState } from 'react';
 import { JobPostListsSkeleton } from '@/features/job-post/components/job-posts-list-skeleton';
@@ -28,6 +28,7 @@ export interface JobPost {
 export type FilterKey = 'workTime' | 'hourlyWage';
 export type FilterValue = string | null;
 export type FiltersState = Record<FilterKey, FilterValue>;
+export type SearchKeywordState = string | null;
 
 const filterOptions = {
   workTime: [
@@ -43,26 +44,47 @@ const filterOptions = {
   ],
 };
 
-export type SearchKeywordState = string | null;
-
 const JobPostsRoute = () => {
   const navigate = useNavigate();
-  const [searchKeyword, setSearchKeyword] = useState<SearchKeywordState>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchKeyword, setSearchKeyword] = useState<SearchKeywordState>(
+    searchParams.get('searchKeyword')
+  );
+  const [filters, setFilters] = useState<FiltersState>({
+    workTime: searchParams.get('workTime'),
+    hourlyWage: searchParams.get('hourlyWage'),
+  });
+  const [showPast, setShowPast] = useState(
+    searchParams.get('showPast') === 'true'
+  );
+
+  const updateSearchParam = (key: string, value: string | null) => {
+    setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams);
+      if (value) {
+        newParams.set(key, String(value)); // boolean 값도 문자열로 변환
+      } else {
+        newParams.delete(key);
+      }
+      return newParams;
+    });
+  };
 
   const handleSearchClick = (input: SearchKeywordState) => {
     setSearchKeyword(input);
+    updateSearchParam('searchKeyword', input);
   };
-
-  const [filters, setFilters] = useState<FiltersState>({
-    workTime: null,
-    hourlyWage: null,
-  });
 
   const handleFilterChange = (key: FilterKey, value: FilterValue) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
+    updateSearchParam(key, value);
   };
 
-  const [showPast, setShowPast] = useState(false);
+  const handleCheckedChange = () => {
+    const newShowPast = !showPast; // state가 비동기 동작하기 때문
+    setShowPast(newShowPast);
+    updateSearchParam('showPast', String(newShowPast));
+  };
 
   return (
     <div className="relative flex flex-col">
@@ -88,8 +110,9 @@ const JobPostsRoute = () => {
           </div>
           <div className="flex items-center gap-2">
             <Checkbox
+              checked={showPast}
               id="show-past"
-              onCheckedChange={() => setShowPast((prev) => !prev)}
+              onCheckedChange={() => handleCheckedChange()}
             />
             <label htmlFor="show-past">지난 공고 보이기</label>
           </div>
