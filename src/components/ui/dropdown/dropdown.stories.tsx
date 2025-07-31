@@ -1,4 +1,4 @@
-import { Dropdown } from '@/components/ui/dropdown/dropdown';
+import { Dropdown } from './dropdown';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 
