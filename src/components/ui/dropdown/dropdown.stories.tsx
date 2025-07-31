@@ -28,6 +28,6 @@ export const WorkTime: Story = {
       { name: '8시간 초과', value: 'long' },
     ],
     value: '초기화',
-    name: 'pay',
+    name: 'hourlyWage',
   },
 };

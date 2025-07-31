@@ -39,9 +39,7 @@ export const getInfiniteJobPostsQueryOptions = (
   filters?: FiltersState
 ) => {
   return infiniteQueryOptions({
-    queryKey: searchKeyword?.trim()
-      ? ['job-posts', searchKeyword]
-      : ['job-posts'],
+    queryKey: ['job-posts', searchKeyword, filters],
     queryFn: ({ pageParam }) =>
       getJobPosts({ pageParam, limit, searchKeyword, filters }),
     getNextPageParam: (lastPage) => {

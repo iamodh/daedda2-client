@@ -24,7 +24,7 @@ export interface JobPost {
   hourlyWage: number;
 }
 
-export type FilterKey = 'workTime' | 'pay';
+export type FilterKey = 'workTime' | 'hourlyWage';
 export type FilterValue = string | null;
 export type FiltersState = Record<FilterKey, FilterValue>;
 
@@ -35,7 +35,7 @@ const filterOptions = {
     { name: '4~8시간', value: 'medium' },
     { name: '8시간 초과', value: 'long' },
   ],
-  pay: [
+  hourlyWage: [
     { name: '초기화', value: null },
     { name: '10,000원 이하', value: 'low' },
     { name: '10,000원 초과', value: 'high' },
@@ -50,7 +50,7 @@ const JobPostsRoute = () => {
 
   const [filters, setFilters] = useState<FiltersState>({
     workTime: null,
-    pay: null,
+    hourlyWage: null,
   });
 
   const handleSearchClick = (input: SearchKeywordState) => {
@@ -75,10 +75,10 @@ const JobPostsRoute = () => {
           />
           <Dropdown
             title="시간당 급여"
-            name="pay"
-            value={filters.pay}
+            name="hourlyWage"
+            value={filters.hourlyWage}
             onChange={handleFilterChange}
-            options={filterOptions.pay}
+            options={filterOptions.hourlyWage}
             size="lg"
           />
         </div>
