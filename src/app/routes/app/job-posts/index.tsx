@@ -9,22 +9,6 @@ import { SearchBar } from '@/components/ui/form/search-bar';
 import { Dropdown } from '@/components/ui/dropdown';
 import { Checkbox } from '@/components/ui/checkbox';
 
-export interface JobPost {
-  id: number;
-  title: string;
-  location: string;
-  pay: number;
-  date: string; // ISO 문자열 또는 Date → 백엔드 응답 기준
-  startTime: string; // 'HH:mm' 형식
-  endTime: string; // 'HH:mm' 형식
-  totalHours: number;
-  place: string;
-  imageUrl: string | null;
-  createdAt: string; // ISO 문자열 (e.g., '2025-07-15T19:55:00.000Z')
-  content: string;
-  hourlyWage: number;
-}
-
 export type FilterKey = 'workTime' | 'hourlyWage';
 export type FilterValue = string | null;
 export type FiltersState = Record<FilterKey, FilterValue>;

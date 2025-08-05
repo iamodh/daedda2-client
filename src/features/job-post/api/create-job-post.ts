@@ -1,6 +1,6 @@
-import type { JobPost } from '@/app/routes/app/job-posts';
 import { paths } from '@/config/paths';
 import { api } from '@/lib/api-client';
+import type { JobPost } from '@/types/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 
