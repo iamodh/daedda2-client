@@ -8,7 +8,11 @@ import FormLayoutWrapper from '@/components/layouts/form-layout-wrapper';
 import { lazy } from 'react';
 
 const Landing = lazy(() => import('./routes/landing'));
+
+const Login = lazy(() => import('./routes/auth/login'));
+
 const Root = lazy(() => import('./routes/app/root'));
+
 const JobPosts = lazy(() => import('./routes/app/job-posts/index'));
 const JobPost = lazy(() => import('./routes/app/job-posts/[id]/index'));
 const History = lazy(() => import('./routes/app/history/index'));
@@ -21,6 +25,12 @@ export const createAppRouter = () =>
       path: paths.home.path,
       element: <Landing />,
     },
+
+    {
+      path: paths.auth.login.path,
+      element: <Login />,
+    },
+
     {
       path: paths.app.root.path,
       element: <Root />,
