@@ -78,4 +78,18 @@
 
   --shadow-custom: -1px -1px 16px 0px #eee,
     3px 3px 18px 0px rgba(170, 170, 170, 0.5);
+
+  --animate-hop: hop 1s infinite;
+
+  @keyframes hop {
+    0%,
+    100% {
+      transform: translateY(-10%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
 }
