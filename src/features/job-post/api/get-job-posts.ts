@@ -1,9 +1,9 @@
 import type {
   FiltersState,
-  JobPost,
   SearchKeywordState,
 } from '@/app/routes/app/job-posts';
 import { api } from '@/lib/api-client';
+import type { JobPost } from '@/types/api';
 import {
   infiniteQueryOptions,
   useSuspenseInfiniteQuery,

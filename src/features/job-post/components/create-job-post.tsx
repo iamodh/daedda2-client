@@ -5,7 +5,7 @@ import { InputImage } from '@/components/ui/form/input-image';
 import { Textarea } from '@/components/ui/form/textarea';
 import {
   useCreateJobPost,
-  type CreateJobPostInputs,
+  type CreateJobPostInput,
 } from '@/features/job-post/api/create-job-post';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
@@ -17,9 +17,9 @@ export const CreateJobPost = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateJobPostInputs>();
+  } = useForm<CreateJobPostInput>();
 
-  const onSumbit: SubmitHandler<CreateJobPostInputs> = async (values) => {
+  const onSumbit: SubmitHandler<CreateJobPostInput> = async (values) => {
     const totalHours = Math.round(
       (parseInt(values.endTime.replace(':', '')) -
         parseInt(values.startTime.replace(':', ''))) /

@@ -4,14 +4,14 @@ interface SearchBarProps {
   onClick: (value: string) => void;
 }
 
-interface SearchBarInputs {
+interface SearchBarInput {
   searchKeyword: string;
 }
 
 const SearchBar = ({ onClick, ...props }: SearchBarProps) => {
-  const { register, handleSubmit } = useForm<SearchBarInputs>();
+  const { register, handleSubmit } = useForm<SearchBarInput>();
 
-  const onSubmit: SubmitHandler<SearchBarInputs> = (values) => {
+  const onSubmit: SubmitHandler<SearchBarInput> = (values) => {
     onClick(values.searchKeyword);
   };
 

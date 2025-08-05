@@ -1,5 +1,5 @@
-import type { JobPost } from '@/app/routes/app/job-posts';
 import { api } from '@/lib/api-client';
+import type { JobPost } from '@/types/api';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 export const getJobPost = ({

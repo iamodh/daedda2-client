@@ -4,7 +4,7 @@ import type { JobPost } from '@/types/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 
-export type CreateJobPostInputs = Omit<
+export type CreateJobPostInput = Omit<
   JobPost,
   'id' | 'createdAt' | 'hourlyWage'
 >;
@@ -12,7 +12,7 @@ export type CreateJobPostInputs = Omit<
 export const createJobPost = ({
   data,
 }: {
-  data: CreateJobPostInputs;
+  data: CreateJobPostInput;
 }): Promise<{ identifiers: { id: number }[] }> => {
   return api.post('/job-posts', data);
 };

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 import { useJobPost } from '@/features/job-post/api/get-job-post';
 import {
   useUpdateJobPost,
-  type UpdateJobPostInputs,
+  type UpdateJobPostInput,
 } from '@/features/job-post/api/update-job-post';
 
 interface UpdateJobPostProps {
@@ -28,7 +28,7 @@ export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<UpdateJobPostInputs>();
+  } = useForm<UpdateJobPostInput>();
 
   useEffect(() => {
     if (jobPost) {
@@ -38,7 +38,7 @@ export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
     }
   }, [jobPost]);
 
-  const onSumbit: SubmitHandler<UpdateJobPostInputs> = async (values) => {
+  const onSumbit: SubmitHandler<UpdateJobPostInput> = async (values) => {
     const totalHours = Math.round(
       (parseInt(values.endTime.replace(':', '')) -
         parseInt(values.startTime.replace(':', ''))) /

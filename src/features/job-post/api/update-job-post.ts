@@ -1,10 +1,10 @@
-import type { JobPost } from '@/app/routes/app/job-posts';
 import { paths } from '@/config/paths';
 import { api } from '@/lib/api-client';
+import type { JobPost } from '@/types/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 
-export type UpdateJobPostInputs = Omit<
+export type UpdateJobPostInput = Omit<
   JobPost,
   'id' | 'createdAt' | 'hourlyWage'
 >;
@@ -13,7 +13,7 @@ export const updateJobPost = ({
   data,
   jobPostId,
 }: {
-  data: UpdateJobPostInputs;
+  data: UpdateJobPostInput;
   jobPostId: string;
 }): Promise<JobPost> => {
   return api.patch(`/job-posts/${jobPostId}`, data);
