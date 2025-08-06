@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { useAuth } from '@/lib/auth';
 import { useState } from 'react';
 import { Spinner } from '@/components/ui/spinner';
+import { Link, useNavigate } from 'react-router';
+import { paths } from '@/config/paths';
 
 export interface LoginInput {
   username: string;
@@ -14,10 +16,11 @@ export interface LoginInput {
 }
 
 export const LoginForm = () => {
-  const { user, login } = useAuth();
+  const { login } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -26,12 +29,11 @@ export const LoginForm = () => {
 
   const onSubmit = async (values: LoginInput) => {
     setIsLoading(true);
-    await login(values);
+    await login(values, () =>
+      navigate(paths.app.jobPosts.getHref(), { replace: true })
+    );
     setIsLoading(false);
   };
-
-  console.log(isLoading);
-  console.log(user);
 
   return (
     <div className="flex flex-col items-center h-screen justify-center gap-4">
@@ -79,7 +81,9 @@ export const LoginForm = () => {
       </form>
       <div className="text-sm">
         <span>처음 이용하시나요? </span>
-        <span>회원가입</span>
+        <Link to={paths.auth.register.getHref()} className="underline">
+          회원가입↗
+        </Link>
       </div>
     </div>
   );

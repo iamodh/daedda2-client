@@ -5,25 +5,23 @@ import { create } from 'zustand';
 
 interface AuthState {
   user: User | null;
-  error: string | null;
-  login: (input: LoginInput) => Promise<void>;
+  login: (input: LoginInput, onSuccess?: () => void) => Promise<void>;
   logout: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
-  error: null,
-  login: async (input) => {
+  login: async (input, onSuccess) => {
     try {
       const { access_token } = await loginWithUsernameAndPassword(input);
       localStorage.setItem('access_token', access_token);
 
       const user = await getUser();
-      set({ user, error: null });
+      set({ user });
       alert('로그인에 성공하였습니다.');
+      onSuccess?.();
     } catch (err: unknown) {
-      const error = err as Error;
-      set({ error: error.message });
+      console.error(err);
       alert('로그인에 실패하였습니다.');
     }
   },
