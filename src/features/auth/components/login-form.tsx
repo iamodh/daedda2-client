@@ -36,7 +36,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-4">
       <span>급하게 필요한 사람이 있을 때,</span>
       <div className="flex flex-col items-center">
         <img src={logo} className="w-50" />
