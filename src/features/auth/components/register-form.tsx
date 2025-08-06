@@ -3,6 +3,11 @@ import { Input } from '@/components/ui/form/input';
 import placeholder from '@/assets/images/placeholder-user.png';
 import { useForm, useWatch } from 'react-hook-form';
 import { Dividor } from '@/components/ui/form/dividor';
+import { useAuth } from '@/lib/auth';
+import { useNavigate } from 'react-router';
+import { paths } from '@/config/paths';
+import { useState } from 'react';
+import { Spinner } from '@/components/ui/spinner';
 
 export interface RegisterInput {
   username: string;
@@ -13,6 +18,9 @@ export interface RegisterInput {
   imageUrl?: string;
 }
 export const RegisterForm = () => {
+  const { register: userRegister } = useAuth();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -20,8 +28,10 @@ export const RegisterForm = () => {
     control,
   } = useForm<RegisterInput>();
 
-  const onSubmit = (values: RegisterInput) => {
-    console.log(values);
+  const onSubmit = async (values: RegisterInput) => {
+    setIsLoading(true);
+    await userRegister(values, () => navigate(paths.app.jobPosts.getHref()));
+    setIsLoading(false);
   };
 
   const nickname = useWatch({ control, name: 'nickname' });
@@ -50,6 +60,7 @@ export const RegisterForm = () => {
               message: '아이디는 8글자 이상이여야합니다.',
             },
           })}
+          maxLength={20}
           error={errors['username']}
         />
         <Input
@@ -62,6 +73,7 @@ export const RegisterForm = () => {
               message: '비밀번호는 8글자 이상이여야합니다.',
             },
           })}
+          maxLength={20}
           error={errors['password']}
         />
         <Dividor />
@@ -71,6 +83,7 @@ export const RegisterForm = () => {
           registration={register('nickname', {
             required: '닉네임은 필수 입력사항입니다.',
           })}
+          maxLength={10}
           error={errors['nickname']}
         />
         <Input
@@ -83,12 +96,12 @@ export const RegisterForm = () => {
               message: '전화번호 형식을 맞춰주세요.',
             },
           })}
+          maxLength={13}
           error={errors['phone']}
         />
 
         <Input
           label="이메일"
-          type="email"
           placeholder="dda123@gmail.com"
           registration={register('email', {
             required: '이메일은 필수 입력사항입니다.',
@@ -97,13 +110,20 @@ export const RegisterForm = () => {
               message: '이메일 형식을 맞춰주세요.',
             },
           })}
+          maxLength={40}
           error={errors['email']}
         />
         <div className="flex gap-4">
-          <Button variant="secondary" type="button">
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={() => navigate(paths.auth.login.getHref())}
+          >
             취소
           </Button>
-          <Button type="submit">회원가입</Button>
+          <Button type="submit">
+            {isLoading ? <Spinner size="sm" /> : '회원가입'}
+          </Button>
         </div>
       </form>
     </div>
