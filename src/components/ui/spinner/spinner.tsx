@@ -2,6 +2,7 @@ import spinner from '@/assets/icons/spinner.svg';
 import { cn } from '@/utils/cn';
 
 const sizes = {
+  sm: 'size-6',
   md: 'size-12',
   lg: 'size-20',
 };
