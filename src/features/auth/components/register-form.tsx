@@ -12,6 +12,7 @@ import { Spinner } from '@/components/ui/spinner';
 export interface RegisterInput {
   username: string;
   password: string;
+  password2: string;
   nickname: string;
   phone: string;
   email: string;
@@ -26,11 +27,16 @@ export const RegisterForm = () => {
     handleSubmit,
     formState: { errors },
     control,
+    watch,
   } = useForm<RegisterInput>();
 
   const onSubmit = async (values: RegisterInput) => {
     setIsLoading(true);
-    await userRegister(values, () => navigate(paths.app.jobPosts.getHref()));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password2, ...rest } = values;
+    await userRegister(rest as RegisterInput, () =>
+      navigate(paths.app.jobPosts.getHref(), { replace: true })
+    );
     setIsLoading(false);
   };
 
@@ -66,6 +72,7 @@ export const RegisterForm = () => {
         <Input
           label="비밀번호"
           placeholder="4321dcba"
+          type="password"
           registration={register('password', {
             required: '비밀번호는 필수 입력사항입니다.',
             minLength: {
@@ -75,6 +82,19 @@ export const RegisterForm = () => {
           })}
           maxLength={20}
           error={errors['password']}
+        />
+        <Input
+          label="비밀번호 확인"
+          type="password"
+          registration={register('password2', {
+            required: '비밀번호 확인은 필수 입력사항입니다.',
+            validate: (value: string) => {
+              if (watch('password') !== value) {
+                return '비밀번호 확인이 일치하지 않습니다.';
+              }
+            },
+          })}
+          error={errors['password2']}
         />
         <Dividor />
         <Input
