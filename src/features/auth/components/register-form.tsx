@@ -41,8 +41,8 @@ export const RegisterForm = () => {
         {nickname ? `${nickname}님 ` : ''}환영합니다!
       </span>
       <div className="flex flex-col items-center">
-        <label className="relative">
-          <img src={placeholder} className="w-30 rounded-full" />
+        <label className="relative cursor-pointer">
+          <img src={placeholder} className="w-24 rounded-full" />
           <input type="file" accept="image/*" className="hidden" />
         </label>
       </div>
