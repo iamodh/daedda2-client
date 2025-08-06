@@ -4,6 +4,9 @@ import { Input } from '@/components/ui/form/input';
 import { Button } from '@/components/ui/button';
 import kakao from '@/assets/icons/kakao.svg';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '@/lib/auth';
+import { useState } from 'react';
+import { Spinner } from '@/components/ui/spinner';
 
 export interface LoginInput {
   username: string;
@@ -11,18 +14,27 @@ export interface LoginInput {
 }
 
 export const LoginForm = () => {
+  const { user, login } = useAuth();
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInput>();
 
-  const onSubmit = (values: LoginInput) => {
-    console.log(values);
+  const onSubmit = async (values: LoginInput) => {
+    setIsLoading(true);
+    await login(values);
+    setIsLoading(false);
   };
 
+  console.log(isLoading);
+  console.log(user);
+
   return (
-    <div className="flex flex-col items-center bg-amber-100 h-screen justify-center gap-4">
+    <div className="flex flex-col items-center h-screen justify-center gap-4">
       <span>급하게 필요한 사람이 있을 때,</span>
       <div className="flex flex-col items-center">
         <img src={logo} className="w-50" />
@@ -58,7 +70,9 @@ export const LoginForm = () => {
           maxLength={20}
           error={errors['password']}
         />
-        <Button type="submit">로그인</Button>
+        <Button type="submit">
+          {isLoading ? <Spinner size="sm" /> : '로그인'}
+        </Button>
         <Button icon={<img src={kakao} />} variant="kakao" type="button">
           카카오 로그인
         </Button>
