@@ -10,6 +10,7 @@ import { lazy } from 'react';
 const Landing = lazy(() => import('./routes/landing'));
 
 const Login = lazy(() => import('./routes/auth/login'));
+const Register = lazy(() => import('./routes/auth/register'));
 
 const Root = lazy(() => import('./routes/app/root'));
 
@@ -29,6 +30,10 @@ export const createAppRouter = () =>
     {
       path: paths.auth.login.path,
       element: <Login />,
+    },
+    {
+      path: paths.auth.register.path,
+      element: <Register />,
     },
 
     {
