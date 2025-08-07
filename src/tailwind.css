@@ -67,6 +67,7 @@
 @layer base {
   html {
     font-family: 'Pretendard';
+    overflow-y: scroll;
   }
 }
 
