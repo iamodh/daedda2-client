@@ -23,10 +23,12 @@ export const registerWithUsernameAndPassword = (
 };
 
 export const useAuth = () => {
-  const { user, register, login, logout } = useAuthStore();
+  const { isLoading, user, init, register, login, logout } = useAuthStore();
 
   return {
+    isLoading,
     user,
+    init,
     register,
     login,
     logout,

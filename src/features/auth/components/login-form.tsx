@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import kakao from '@/assets/icons/kakao.svg';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '@/lib/auth';
-import { useState } from 'react';
 import { Spinner } from '@/components/ui/spinner';
 import { Link, useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
@@ -16,9 +15,7 @@ export interface LoginInput {
 }
 
 export const LoginForm = () => {
-  const { login } = useAuth();
-
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, login } = useAuth();
 
   const navigate = useNavigate();
   const {
@@ -28,11 +25,9 @@ export const LoginForm = () => {
   } = useForm<LoginInput>();
 
   const onSubmit = async (values: LoginInput) => {
-    setIsLoading(true);
     await login(values, () =>
       navigate(paths.app.jobPosts.getHref(), { replace: true })
     );
-    setIsLoading(false);
   };
 
   return (

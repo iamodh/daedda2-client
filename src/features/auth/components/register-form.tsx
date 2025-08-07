@@ -6,7 +6,6 @@ import { Dividor } from '@/components/ui/form/dividor';
 import { useAuth } from '@/lib/auth';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
-import { useState } from 'react';
 import { Spinner } from '@/components/ui/spinner';
 
 export interface RegisterInput {
@@ -19,9 +18,8 @@ export interface RegisterInput {
   imageUrl?: string;
 }
 export const RegisterForm = () => {
-  const { register: userRegister } = useAuth();
+  const { isLoading, register: userRegister } = useAuth();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -31,13 +29,11 @@ export const RegisterForm = () => {
   } = useForm<RegisterInput>();
 
   const onSubmit = async (values: RegisterInput) => {
-    setIsLoading(true);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password2, ...rest } = values;
     await userRegister(rest as RegisterInput, () =>
       navigate(paths.app.jobPosts.getHref(), { replace: true })
     );
-    setIsLoading(false);
   };
 
   const nickname = useWatch({ control, name: 'nickname' });
