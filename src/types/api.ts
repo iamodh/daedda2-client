@@ -8,7 +8,6 @@ export type Entity<T> = {
 } & BaseEntity;
 
 export type User = Entity<{
-  id: number;
   username: string;
   nickname: string;
   phone: string;
