@@ -2,14 +2,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/form/input';
 import placeholder from '@/assets/images/placeholder-user.png';
 import { useForm, useWatch } from 'react-hook-form';
-import { useAuth } from '@/lib/auth';
-import { useNavigate } from 'react-router';
-import { paths } from '@/config/paths';
 import { Spinner } from '@/components/ui/spinner';
-import type { RegisterInput } from '@/features/auth/components/register-form';
 import { useProfile } from '@/features/profile/api/get-profile';
 import { useEffect, useState } from 'react';
 import { cn } from '@/utils/cn';
+import {
+  useUpdateProfile,
+  type UpdateProfileInput,
+} from '@/features/profile/api/update-profile';
 
 interface ProfileViewProps {
   userId: number;
@@ -17,36 +17,36 @@ interface ProfileViewProps {
 
 export const ProfileView = ({ userId }: ProfileViewProps) => {
   const [isEditable, setIsEditable] = useState(false);
-  const { isLoading, register: userRegister } = useAuth();
-  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
     reset,
-  } = useForm<RegisterInput>();
+  } = useForm<UpdateProfileInput>();
   const nickname = useWatch({ control, name: 'nickname' });
 
   const profileQuery = useProfile({ userId });
-
   const profile = profileQuery?.data;
+  const updateProfileMutation = useUpdateProfile({ userId });
 
   useEffect(() => {
     if (profile) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      reset({ ...profile });
+      const { nickname, email, phone, imageUrl } = profile;
+      reset({ nickname, email, phone, imageUrl });
     }
   }, [profile]);
 
   if (!profile) return null;
 
-  const onSubmit = async (values: RegisterInput) => {
+  const onSubmit = async (values: UpdateProfileInput) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password2, ...rest } = values;
-    await userRegister(rest as RegisterInput, () =>
-      navigate(paths.app.jobPosts.getHref(), { replace: true })
-    );
+    updateProfileMutation.mutate({
+      data: values,
+      userId,
+    });
+    setIsEditable(false);
   };
 
   return (
@@ -127,7 +127,7 @@ export const ProfileView = ({ userId }: ProfileViewProps) => {
               취소
             </Button>
             <Button type="submit">
-              {isLoading ? <Spinner size="sm" /> : '완료'}
+              {updateProfileMutation.isPending ? <Spinner size="sm" /> : '완료'}
             </Button>
           </div>
         )}
