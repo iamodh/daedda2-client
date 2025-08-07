@@ -10,12 +10,16 @@ import {
   useUpdateProfile,
   type UpdateProfileInput,
 } from '@/features/profile/api/update-profile';
+import { useAuth } from '@/lib/auth';
+import { useNavigate } from 'react-router';
+import { paths } from '@/config/paths';
 
 interface ProfileViewProps {
   userId: number;
 }
 
 export const ProfileView = ({ userId }: ProfileViewProps) => {
+  const navigate = useNavigate();
   const [isEditable, setIsEditable] = useState(false);
 
   const {
@@ -37,6 +41,8 @@ export const ProfileView = ({ userId }: ProfileViewProps) => {
       reset({ nickname, email, phone, imageUrl });
     }
   }, [profile]);
+
+  const { logout } = useAuth();
 
   if (!profile) return null;
 
@@ -113,8 +119,21 @@ export const ProfileView = ({ userId }: ProfileViewProps) => {
           disabled={!isEditable}
         />
         {!isEditable && (
-          <div>
-            <Button onClick={() => setIsEditable(true)}>수정하기</Button>
+          <div className="flex flex-col gap-4">
+            <Button type="button" onClick={() => setIsEditable(true)}>
+              수정하기
+            </Button>
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() =>
+                logout(() =>
+                  navigate(paths.auth.login.getHref(), { replace: true })
+                )
+              }
+            >
+              로그아웃
+            </Button>
           </div>
         )}
         {isEditable && (

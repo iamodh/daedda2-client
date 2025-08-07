@@ -12,7 +12,7 @@ interface AuthState {
   user: User | null;
   register: (input: RegisterInput, onSuccess?: () => void) => Promise<void>;
   login: (input: LoginInput, onSuccess?: () => void) => Promise<void>;
-  logout: () => void;
+  logout: (onSuccess?: () => void) => void;
   init: () => Promise<void>;
   isLoading: boolean;
 }
@@ -72,8 +72,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ isLoading: false });
     }
   },
-  logout: () => {
+  logout: (onSuccess) => {
     localStorage.removeItem('access_token');
     set({ user: null });
+    alert('로그아웃 되었습니다');
+    onSuccess?.();
   },
 }));
