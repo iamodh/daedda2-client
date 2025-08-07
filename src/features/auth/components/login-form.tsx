@@ -4,10 +4,10 @@ import { Input } from '@/components/ui/form/input';
 import { Button } from '@/components/ui/button';
 import kakao from '@/assets/icons/kakao.svg';
 import { useForm } from 'react-hook-form';
-import { useAuth } from '@/lib/auth';
 import { Spinner } from '@/components/ui/spinner';
 import { Link, useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
+import { useAuth } from '@/lib/auth';
 
 export interface LoginInput {
   username: string;
@@ -15,7 +15,7 @@ export interface LoginInput {
 }
 
 export const LoginForm = () => {
-  const { isLoading, login } = useAuth();
+  const { isAuthLoading, login } = useAuth();
 
   const navigate = useNavigate();
   const {
@@ -68,7 +68,7 @@ export const LoginForm = () => {
           error={errors['password']}
         />
         <Button type="submit">
-          {isLoading ? <Spinner size="sm" /> : '로그인'}
+          {isAuthLoading ? <Spinner size="sm" /> : '로그인'}
         </Button>
         <Button icon={<img src={kakao} />} variant="kakao" type="button">
           카카오 로그인

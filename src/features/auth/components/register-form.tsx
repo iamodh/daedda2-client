@@ -3,10 +3,10 @@ import { Input } from '@/components/ui/form/input';
 import placeholder from '@/assets/images/placeholder-user.png';
 import { useForm, useWatch } from 'react-hook-form';
 import { Dividor } from '@/components/ui/form/dividor';
-import { useAuth } from '@/lib/auth';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
 import { Spinner } from '@/components/ui/spinner';
+import { useAuth } from '@/lib/auth';
 
 export interface RegisterInput {
   username: string;
@@ -18,7 +18,7 @@ export interface RegisterInput {
   imageUrl?: string;
 }
 export const RegisterForm = () => {
-  const { isLoading, register: userRegister } = useAuth();
+  const { isAuthLoading, register: userRegister } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -138,7 +138,7 @@ export const RegisterForm = () => {
             취소
           </Button>
           <Button type="submit">
-            {isLoading ? <Spinner size="sm" /> : '회원가입'}
+            {isAuthLoading ? <Spinner size="sm" /> : '회원가입'}
           </Button>
         </div>
       </form>
