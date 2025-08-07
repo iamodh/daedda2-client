@@ -1,5 +1,5 @@
-import { Spinner } from '@/components/ui/spinner';
 import { ProfileView } from '@/features/profile/components/profile-view';
+import { ProfileViewSkeleton } from '@/features/profile/components/profile-view-skeleton';
 import { useAuth } from '@/lib/auth';
 import { Suspense } from 'react';
 
@@ -13,7 +13,7 @@ const ProfileRoute = () => {
       <Suspense
         fallback={
           <div>
-            <Spinner />
+            <ProfileViewSkeleton />
           </div>
         }
       >
