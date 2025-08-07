@@ -6,6 +6,7 @@ import MainLayoutWrapper from '@/components/layouts/main-layout-wrapper';
 import FormLayoutWrapper from '@/components/layouts/form-layout-wrapper';
 
 import { lazy } from 'react';
+import { ProtectedRoute } from '@/app/routes/auth/protected';
 
 const Landing = lazy(() => import('./routes/landing'));
 
@@ -38,7 +39,11 @@ export const createAppRouter = () =>
 
     {
       path: paths.app.root.path,
-      element: <Root />,
+      element: (
+        <ProtectedRoute>
+          <Root />
+        </ProtectedRoute>
+      ),
       children: [
         {
           element: <MainLayoutWrapper />,

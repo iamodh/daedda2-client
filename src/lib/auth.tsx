@@ -23,15 +23,16 @@ export const registerWithUsernameAndPassword = (
 };
 
 export const useAuth = () => {
-  const { isLoading, user, init, register, login, logout } = useAuthStore();
+  const { isAuthLoading, isInitializing, user, init, register, login, logout } =
+    useAuthStore();
 
   return {
-    isLoading,
+    isAuthLoading,
+    isInitializing,
     user,
     init,
     register,
     login,
     logout,
-    isAuthenticated: !!user,
   };
 };

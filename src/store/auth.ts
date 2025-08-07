@@ -10,36 +10,45 @@ import { create } from 'zustand';
 
 interface AuthState {
   user: User | null;
+  isAuthLoading: boolean;
+  isInitializing: boolean;
+
+  init: () => Promise<void>;
   register: (input: RegisterInput, onSuccess?: () => void) => Promise<void>;
   login: (input: LoginInput, onSuccess?: () => void) => Promise<void>;
   logout: (onSuccess?: () => void) => void;
-  init: () => Promise<void>;
-  isLoading: boolean;
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
-  isLoading: false,
+  isAuthLoading: false,
+  isInitializing: true,
 
   init: async () => {
     const token = localStorage.getItem('access_token');
-    if (!token) return;
+    if (!token) {
+      set({ isInitializing: false });
+      return;
+    }
+
+    // 중복 호출 방지
     const state = get();
     if (state.user) return;
 
-    set({ isLoading: true });
+    set({ isAuthLoading: true });
     try {
       const user = await getUser();
       set({ user });
+      set({ isInitializing: false });
     } catch (error) {
       console.error(error);
     } finally {
-      set({ isLoading: false });
+      set({ isAuthLoading: false });
     }
   },
 
   register: async (input, onSuccess) => {
-    set({ isLoading: true });
+    set({ isAuthLoading: true });
 
     try {
       const { access_token } = await registerWithUsernameAndPassword(input);
@@ -52,11 +61,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       console.error(error);
       alert('회원가입에 실패하였습니다.');
     } finally {
-      set({ isLoading: false });
+      set({ isAuthLoading: false });
     }
   },
+
   login: async (input, onSuccess) => {
-    set({ isLoading: true });
+    set({ isAuthLoading: true });
     try {
       const { access_token } = await loginWithUsernameAndPassword(input);
       localStorage.setItem('access_token', access_token);
@@ -69,9 +79,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       console.error(error);
       alert('로그인에 실패하였습니다.');
     } finally {
-      set({ isLoading: false });
+      set({ isAuthLoading: false });
     }
   },
+
   logout: (onSuccess) => {
     localStorage.removeItem('access_token');
     set({ user: null });
