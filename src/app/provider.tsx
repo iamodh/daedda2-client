@@ -7,6 +7,7 @@ import { Suspense, useEffect } from 'react';
 export const AppProvider = ({ children }: React.PropsWithChildren) => {
   const { init } = useAuth();
 
+  // 새로고침시 유저 정보 불러오기
   useEffect(() => {
     const initUser = async () => {
       await init();
