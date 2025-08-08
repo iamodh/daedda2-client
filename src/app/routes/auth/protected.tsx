@@ -15,7 +15,6 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (!user) {
-    alert('로그인이 필요한 페이지입니다..');
     return <Navigate to={paths.auth.login.getHref()} replace />;
   }
 
