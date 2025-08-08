@@ -5,7 +5,6 @@ import { useForm, useWatch } from 'react-hook-form';
 import { Dividor } from '@/components/ui/form/dividor';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
-import { Spinner } from '@/components/ui/spinner';
 import { useAuth } from '@/lib/auth';
 
 export interface RegisterInput {
@@ -137,8 +136,8 @@ export const RegisterForm = () => {
           >
             취소
           </Button>
-          <Button type="submit">
-            {isAuthLoading ? <Spinner size="sm" /> : '회원가입'}
+          <Button type="submit" isLoading={isAuthLoading}>
+            회원가입
           </Button>
         </div>
       </form>

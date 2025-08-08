@@ -11,6 +11,7 @@ export const DeleteJobPost = ({ jobPostId }: DeleteJobPostProps) => {
       onClick={() => deleteJobPostMutation.mutate({ jobPostId })}
       variant="secondary"
       size="sm"
+      isLoading={deleteJobPostMutation.isPending}
     >
       삭제
     </Button>

@@ -1,3 +1,4 @@
+import { Spinner } from '@/components/ui/spinner';
 import { cn } from '@/utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { PropsWithChildren } from 'react';
@@ -31,6 +32,7 @@ interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   icon?: React.ReactNode;
+  isLoading?: boolean;
 }
 
 const Button = ({
@@ -38,12 +40,19 @@ const Button = ({
   size,
   children,
   icon,
+  isLoading,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   return (
     <button className={cn(buttonVariants({ variant, size }))} {...props}>
-      {icon ?? icon}
-      {children}
+      {isLoading ? (
+        <Spinner size="sm" />
+      ) : (
+        <>
+          {icon ?? icon}
+          {children}
+        </>
+      )}
     </button>
   );
 };

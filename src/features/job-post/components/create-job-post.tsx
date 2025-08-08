@@ -130,7 +130,9 @@ export const CreateJobPost = () => {
         />
       </div>
       <div className="flex flex-col gap-4">
-        <Button type="submit">등록</Button>
+        <Button type="submit" isLoading={createJobPostMutate.isPending}>
+          등록
+        </Button>
         <Button
           type="button"
           variant={'secondary'}

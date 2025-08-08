@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/form/input';
 import placeholder from '@/assets/images/placeholder-user.png';
 import { useForm, useWatch } from 'react-hook-form';
-import { Spinner } from '@/components/ui/spinner';
 import { useProfile } from '@/features/profile/api/get-profile';
 import { useEffect, useState } from 'react';
 import { cn } from '@/utils/cn';
@@ -48,7 +47,7 @@ export const ProfileView = ({ userId }: ProfileViewProps) => {
 
   const onSubmit = async (values: UpdateProfileInput) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    updateProfileMutation.mutate({
+    await updateProfileMutation.mutateAsync({
       data: values,
       userId,
     });
@@ -145,8 +144,8 @@ export const ProfileView = ({ userId }: ProfileViewProps) => {
             >
               취소
             </Button>
-            <Button type="submit">
-              {updateProfileMutation.isPending ? <Spinner size="sm" /> : '완료'}
+            <Button type="submit" isLoading={updateProfileMutation.isPending}>
+              완료
             </Button>
           </div>
         )}

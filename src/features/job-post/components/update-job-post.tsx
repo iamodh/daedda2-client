@@ -152,7 +152,9 @@ export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
         />
       </div>
       <div className="flex flex-col gap-4">
-        <Button type="submit">수정</Button>
+        <Button type="submit" isLoading={updateJobPostMutation.isPending}>
+          수정
+        </Button>
         <Button
           type="button"
           variant={'secondary'}

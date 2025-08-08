@@ -4,7 +4,6 @@ import { Input } from '@/components/ui/form/input';
 import { Button } from '@/components/ui/button';
 import kakao from '@/assets/icons/kakao.svg';
 import { useForm } from 'react-hook-form';
-import { Spinner } from '@/components/ui/spinner';
 import { Link, useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
 import { useAuth } from '@/lib/auth';
@@ -67,8 +66,8 @@ export const LoginForm = () => {
           maxLength={20}
           error={errors['password']}
         />
-        <Button type="submit">
-          {isAuthLoading ? <Spinner size="sm" /> : '로그인'}
+        <Button type="submit" isLoading={isAuthLoading}>
+          로그인
         </Button>
         <Button icon={<img src={kakao} />} variant="kakao" type="button">
           카카오 로그인
