@@ -7,12 +7,14 @@ import {
   useCreateJobPost,
   type CreateJobPostInput,
 } from '@/features/job-post/api/create-job-post';
+import { useAuth } from '@/lib/auth';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
 export const CreateJobPost = () => {
   const navigate = useNavigate();
   const createJobPostMutate = useCreateJobPost();
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,6 +22,8 @@ export const CreateJobPost = () => {
   } = useForm<CreateJobPostInput>();
 
   const onSumbit: SubmitHandler<CreateJobPostInput> = async (values) => {
+    if (!user) return;
+
     const totalHours = Math.round(
       (parseInt(values.endTime.replace(':', '')) -
         parseInt(values.startTime.replace(':', ''))) /
@@ -31,6 +35,7 @@ export const CreateJobPost = () => {
       location: '경남 김해시 대청동',
       totalHours,
       imageUrl: null,
+      userId: user.id,
       hourlyWage: parseInt((values.pay / totalHours).toFixed(0)),
     };
 
