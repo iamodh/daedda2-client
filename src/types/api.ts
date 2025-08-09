@@ -33,4 +33,11 @@ export type JobPost = Entity<{
   imageUrl: string | null;
   content: string;
   hourlyWage: number;
+  user?: JobPostUserInfo;
 }>;
+
+export type JobPostUserInfo = {
+  id: number;
+  nickname: string;
+  imageUrl?: string;
+};

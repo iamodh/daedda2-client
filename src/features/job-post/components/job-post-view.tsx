@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
 import { DeleteJobPost } from '@/features/job-post/components/delete-job-post';
 import { useJobPost } from '@/features/job-post/api/get-job-post';
+import { useAuth } from '@/lib/auth';
 // To Do
 // - 제목 section 반응형 텍스트 크기 조절
 
@@ -19,6 +20,7 @@ const JobPostView = ({ jobPostId }: JobPostViewProps) => {
   const jobPostQuery = useJobPost({ jobPostId });
 
   const jobPost = jobPostQuery?.data;
+  const { user } = useAuth();
 
   if (!jobPost) return null;
   return (
@@ -34,20 +36,25 @@ const JobPostView = ({ jobPostId }: JobPostViewProps) => {
         </header>
         <div className="flex items-center justify-between">
           <div className="flex justify-center items-center gap-2">
-            <img src={userPlaceholder} className="size-10" />
-            <span>대따 유저</span>
+            <img
+              src={jobPost.user?.imageUrl ?? userPlaceholder}
+              className="size-10"
+            />
+            <span>{jobPost.user?.nickname}</span>
           </div>
-          <div className="flex gap-3">
-            <Button
-              onClick={() =>
-                navigate(paths.app.eidtJobPost.getHref(jobPost.id))
-              }
-              size="sm"
-            >
-              수정
-            </Button>
-            <DeleteJobPost jobPostId={jobPostId} />
-          </div>
+          {user?.id === jobPost.user?.id && (
+            <div className="flex gap-3">
+              <Button
+                onClick={() =>
+                  navigate(paths.app.eidtJobPost.getHref(jobPost.id))
+                }
+                size="sm"
+              >
+                수정
+              </Button>
+              <DeleteJobPost jobPostId={jobPostId} />
+            </div>
+          )}
         </div>
       </section>
       <Dividor />
