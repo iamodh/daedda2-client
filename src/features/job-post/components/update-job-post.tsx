@@ -33,7 +33,7 @@ export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
   useEffect(() => {
     if (jobPost) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { id, createdAt, ...rest } = jobPost;
+      const { id, createdAt, user, userId, ...rest } = jobPost;
       reset({ ...rest, date: jobPost?.date.slice(0, 10) });
     }
   }, [jobPost]);
@@ -47,9 +47,7 @@ export const UpdateJobPost = ({ jobPostId }: UpdateJobPostProps) => {
 
     const updatedPost = {
       ...values,
-      location: '경남 김해시 대청동',
       totalHours,
-      imageUrl: null,
       hourlyWage: parseInt((values.pay / totalHours).toFixed(0)),
     };
 

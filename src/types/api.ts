@@ -34,6 +34,7 @@ export type JobPost = Entity<{
   content: string;
   hourlyWage: number;
   user?: JobPostUserInfo;
+  userId: number;
 }>;
 
 export type JobPostUserInfo = {
