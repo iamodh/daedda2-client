@@ -8,8 +8,9 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   if (isInitializing) {
     return (
-      <div className="h-screen flex justify-center items-center">
+      <div className="h-screen flex flex-col justify-center items-center gap-2">
         <Spinner size="lg" />
+        <span className="text-sm">유저 정보 확인하는 중...</span>
       </div>
     );
   }

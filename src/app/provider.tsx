@@ -20,8 +20,9 @@ export const AppProvider = ({ children }: React.PropsWithChildren) => {
   return (
     <Suspense
       fallback={
-        <div className="h-screen flex justify-center items-center">
+        <div className="h-screen flex flex-col justify-center items-center gap-2">
           <Spinner size="lg" />
+          <span className="text-sm">페이지 불러오는 중...</span>
         </div>
       }
     >
