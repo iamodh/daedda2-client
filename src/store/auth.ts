@@ -43,7 +43,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     } catch (error) {
       console.error(error);
     } finally {
-      set({ isAuthLoading: false });
+      set({ isAuthLoading: false, isInitializing: false });
     }
   },
 
@@ -61,7 +61,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       console.error(error);
       alert('회원가입에 실패하였습니다.');
     } finally {
-      set({ isAuthLoading: false });
+      set({ isAuthLoading: false, isInitializing: false });
     }
   },
 
@@ -79,7 +79,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       console.error(error);
       alert('로그인에 실패하였습니다.');
     } finally {
-      set({ isAuthLoading: false });
+      set({ isAuthLoading: false, isInitializing: false });
     }
   },
 
