@@ -8,7 +8,7 @@ import {
 import type { User } from '@/types/api';
 import { create } from 'zustand';
 
-interface AuthState {
+export interface AuthState {
   user: User | null;
   isAuthLoading: boolean;
   isInitializing: boolean;

@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/form/input';
 import { Button } from '@/components/ui/button';
 import kakao from '@/assets/icons/kakao.svg';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { paths } from '@/config/paths';
 import { useAuth } from '@/lib/auth';
 
@@ -13,10 +13,13 @@ export interface LoginInput {
   password: string;
 }
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  onSuccess: () => void;
+}
+
+export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const { isAuthLoading, login } = useAuth();
 
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -24,9 +27,9 @@ export const LoginForm = () => {
   } = useForm<LoginInput>();
 
   const onSubmit = async (values: LoginInput) => {
-    await login(values, () =>
-      navigate(paths.app.jobPosts.getHref(), { replace: true })
-    );
+    await login(values, () => {
+      onSuccess();
+    });
   };
 
   return (
@@ -66,7 +69,11 @@ export const LoginForm = () => {
           maxLength={20}
           error={errors['password']}
         />
-        <Button type="submit" isLoading={isAuthLoading}>
+        <Button
+          area-label="로그인 버튼"
+          type="submit"
+          isLoading={isAuthLoading}
+        >
           로그인
         </Button>
         <Button icon={<img src={kakao} />} variant="kakao" type="button">

@@ -14,6 +14,10 @@ interface SpinnerProps {
 
 export const Spinner = ({ size = 'md', className }: SpinnerProps) => {
   return (
-    <img src={spinner} className={cn('animate-spin', sizes[size], className)} />
+    <img
+      data-testid="loading"
+      src={spinner}
+      className={cn('animate-spin', sizes[size], className)}
+    />
   );
 };
