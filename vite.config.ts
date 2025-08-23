@@ -27,9 +27,10 @@ export default defineConfig({
         extends: true,
         test: {
           name: 'unit',
-          environment: 'node',
+          environment: 'jsdom',
           include: ['src/**/*.test.{ts,tsx}'],
           globals: true,
+          setupFiles: '/src/testing/setup.ts', // ✅ 여기에 등록
         },
       },
 
