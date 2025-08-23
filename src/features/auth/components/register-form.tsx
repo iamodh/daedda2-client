@@ -14,9 +14,14 @@ export interface RegisterInput {
   nickname: string;
   phone: string;
   email: string;
-  imageUrl?: string;
+  imageUrl?: string | null;
 }
-export const RegisterForm = () => {
+
+interface RegisterFormProps {
+  onSuccess: () => void;
+}
+
+export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const { isAuthLoading, register: userRegister } = useAuth();
   const navigate = useNavigate();
   const {
@@ -30,9 +35,7 @@ export const RegisterForm = () => {
   const onSubmit = async (values: RegisterInput) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password2, ...rest } = values;
-    await userRegister(rest as RegisterInput, () =>
-      navigate(paths.app.jobPosts.getHref(), { replace: true })
-    );
+    await userRegister(rest as RegisterInput, () => onSuccess());
   };
 
   const nickname = useWatch({ control, name: 'nickname' });
