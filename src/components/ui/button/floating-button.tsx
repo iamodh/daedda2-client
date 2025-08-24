@@ -9,11 +9,13 @@ interface FloatingButtonProps
 const FloatingButton = ({
   icon,
   onClick,
+  ...props
 }: PropsWithChildren<FloatingButtonProps>) => {
   return (
     <button
       className="size-14 bg-linear-30 from-pink-200 to-pirmary-500 fixed bottom-20 self-end rounded-full mr-4 flex justify-center items-center shadow-xl cursor-pointer"
       onClick={onClick}
+      {...props}
     >
       {icon}
     </button>

@@ -112,6 +112,7 @@ const JobPostsRoute = () => {
         />
       </Suspense>
       <FloatingButton
+        aria-label="구인글 작성"
         icon={<img src={plus} />}
         onClick={() => {
           navigate(paths.app.newJobPost.getHref());
