@@ -46,4 +46,5 @@ test('smoke', async ({ page }) => {
   // 게시글 삭제
   await page.getByRole('button', { name: '삭제' }).click();
   await page.waitForURL('app/job-posts');
+  await expect(page.getByText('게시글 수정 테스트')).not.toBeVisible();
 });
