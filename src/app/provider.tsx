@@ -27,7 +27,7 @@ export const AppProvider = ({ children }: React.PropsWithChildren) => {
       }
     >
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
+        {/* <ReactQueryDevtools /> */}
         {children}
       </QueryClientProvider>
     </Suspense>
