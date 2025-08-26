@@ -82,12 +82,15 @@ const JobPostsList = ({
                 </p>
                 <p className="font-semibold  md:text-sm text-xs text-slate-700">
                   {formatDateToKoreanShort(jobPost.date)}ㆍ{jobPost.startTime} ~{' '}
-                  {jobPost.endTime}ㆍ{jobPost.totalHours}시간
+                  {jobPost.endTime}
+                  <span className="md:visible hidden">
+                    ㆍ{jobPost.totalHours}시간
+                  </span>
                 </p>
               </div>
               <img
                 src={imagePlaceholder}
-                className="rounded-lg md:size-28 size-26"
+                className="rounded-lg md:size-28 size-24"
               />
             </Link>
           </li>
