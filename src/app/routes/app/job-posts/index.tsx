@@ -92,14 +92,16 @@ const JobPostsRoute = () => {
               size="lg"
             />
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex gap-2 items-center">
             <Checkbox
               checked={showPast}
               id="show-past"
               onCheckedChange={() => handleCheckedChange()}
             />
-            <label htmlFor="show-past" className="text-sm md:text-[1rem]">
-              지난 공고 보이기
+            <label htmlFor="show-past" className="flex items-center">
+              <span className="text-xs md:text-sm whitespace-nowrap">
+                지난 공고 보기
+              </span>
             </label>
           </div>
         </div>
