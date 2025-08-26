@@ -1,7 +1,6 @@
 import { Spinner } from '@/components/ui/spinner';
 import { useAuth } from '@/lib/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Suspense, useEffect } from 'react';
 
 export const AppProvider = ({ children }: React.PropsWithChildren) => {
