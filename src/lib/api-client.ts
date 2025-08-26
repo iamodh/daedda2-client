@@ -15,10 +15,10 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use((response) => {
-  return response.data;
-  //   return new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       resolve(response.data);
-  //     }, 1000);
-  //   });
+  //   return response.data;
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(response.data);
+    }, 500);
+  });
 });
