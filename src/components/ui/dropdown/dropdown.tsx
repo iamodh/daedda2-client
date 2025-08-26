@@ -6,7 +6,7 @@ import { useRef, useState } from 'react';
 const sizes = {
   sm: 'w-20',
   md: 'w-25',
-  lg: 'w-30',
+  lg: 'w-28',
 };
 
 interface DropdownOption {
