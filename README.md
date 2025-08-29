@@ -7,7 +7,7 @@
 
 <p align="center">지원부터 입금까지 아르바이트 전 과정을 간편하게 관리할 수 있습니다.</p>
 
-<p align="center"><a href="https://daedda2.vercel.app/auth/login" align="center"> 👉 서비스 바로가기 </a></p>
+<p align="center"><a href="https://daedda2.vercel.app/auth/login" target="_blank" align="center"> 👉 서비스 바로가기 </a></p>
 
 <br/>
 
