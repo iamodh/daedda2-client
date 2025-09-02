@@ -1,3 +1,4 @@
+import { getDelayState } from '@/store/delay';
 import axios from 'axios';
 
 export const api = axios.create({
@@ -15,10 +16,14 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use((response) => {
-  //   return response.data;
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(response.data);
-    }, 500);
-  });
+  const { enabled } = getDelayState();
+
+  if (enabled)
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(response.data);
+      }, 500);
+    });
+
+  return response.data;
 });
