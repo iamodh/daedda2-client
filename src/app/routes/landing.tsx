@@ -17,7 +17,7 @@ const LandingRoute = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center gap-4">
+    <div className="h-screen flex flex-col items-center justify-center gap-4 px-8">
       <div className="flex flex-col gap-2 justify-center items-center">
         <h1 className="text-2xl font-semibold">대따</h1>
         <p>
