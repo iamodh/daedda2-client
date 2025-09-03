@@ -40,9 +40,9 @@ export const createAppRouter = () =>
     {
       path: paths.app.root.path,
       element: (
-        <ProtectedRoute>
-          <Root />
-        </ProtectedRoute>
+        // <ProtectedRoute>
+        <Root />
+        // </ProtectedRoute>
       ),
       children: [
         {
