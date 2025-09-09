@@ -6,7 +6,7 @@ import MainLayoutWrapper from '@/components/layouts/main-layout-wrapper';
 import FormLayoutWrapper from '@/components/layouts/form-layout-wrapper';
 
 import { lazy } from 'react';
-import { ProtectedRoute } from '@/app/routes/auth/protected';
+import { ProtectedRoute } from '@/app/routes/protected';
 
 const Landing = lazy(() => import('./routes/landing'));
 
