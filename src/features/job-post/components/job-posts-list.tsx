@@ -97,13 +97,11 @@ const JobPostsList = ({
         ))}
       </ul>
       {jobPostsQuery.hasNextPage && !jobPostsQuery.isFetchingNextPage && (
-        <div ref={setTarget}>LOADING</div>
+        <div ref={setTarget} />
       )}
       {jobPostsQuery.isFetchingNextPage && (
-        <div ref={setTarget} className="flex justify-center">
-          {jobPostsQuery.isFetchingNextPage && (
-            <Spinner size="md" className="my-8" />
-          )}
+        <div className="flex justify-center">
+          <Spinner size="md" className="my-8" />
         </div>
       )}
     </>
