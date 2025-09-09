@@ -1,20 +1,8 @@
 import { Spinner } from '@/components/ui/spinner';
-import { useAuth } from '@/lib/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 
 export const AppProvider = ({ children }: React.PropsWithChildren) => {
-  const { init } = useAuth();
-
-  // 새로고침시 유저 정보 불러오기
-  useEffect(() => {
-    const initUser = async () => {
-      await init();
-    };
-
-    initUser();
-  }, []);
-
   const queryClient = new QueryClient();
   return (
     <Suspense
