@@ -34,7 +34,7 @@ export const CreateJobPost = () => {
       ...values,
       location: '경남 김해시 대청동',
       totalHours,
-      imageUrl: null,
+      imageUrl: '',
       userId: user.id,
       hourlyWage: parseInt((values.pay / totalHours).toFixed(0)),
     };

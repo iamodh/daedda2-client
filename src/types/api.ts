@@ -30,7 +30,7 @@ export type JobPost = Entity<{
   endTime: string; // 'HH:mm' 형식
   totalHours: number;
   place: string;
-  imageUrl: string | null;
+  imageUrl: string;
   content: string;
   hourlyWage: number;
   user?: JobPostUserInfo;

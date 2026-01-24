@@ -2,12 +2,12 @@ import type {
   FiltersState,
   SearchKeywordState,
 } from '@/app/routes/app/job-posts';
-import imagePlaceholder from '@/assets/images/placeholder-image.png';
 import { Spinner } from '@/components/ui/spinner';
 import { paths } from '@/config/paths';
 import { useInfiniteJobPosts } from '@/features/job-post/api/get-job-posts';
-import { useIntersectionObserver } from '@/lib/pagination';
+import useIntersection from '@/lib/intersection';
 import { formatDateToKoreanShort } from '@/utils/format';
+import { optimizeImage } from '@/utils/image';
 import { Link } from 'react-router';
 
 interface JobPostListProps {
@@ -21,34 +21,58 @@ const JobPostsList = ({
   showPast,
 }: JobPostListProps) => {
   const jobPostsQuery = useInfiniteJobPosts(
-    5,
+    6,
     searchKeyword,
     filters,
     showPast
   );
 
   const jobPosts = jobPostsQuery.data?.pages.flatMap((page) => page.data);
+  jobPosts.map(
+    (jobPost) =>
+      (jobPost.imageUrl = optimizeImage(jobPost.imageUrl, '120', '120'))
+  );
 
-  const onIntersect: IntersectionObserverCallback = async (
-    [entry],
+  //   뷰포트에 감지된 이미지들의 src를 dataset-src로 변경
+  const lazyImageCallback: IntersectionObserverCallback = (
+    entries,
     observer
   ) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && entry.target instanceof HTMLImageElement) {
+        const imageSrc = entry.target.dataset.src;
+        if (imageSrc) {
+          entry.target.src = imageSrc;
+        }
+
+        // 변경이 끝난 이미지 unobserve
+        observer.unobserve(entry.target);
+      }
+    });
+  };
+
+  const infiniteScrollCallback: IntersectionObserverCallback = async ([
+    entry,
+  ]) => {
     if (
       entry.isIntersecting &&
       jobPostsQuery.hasNextPage &&
       !jobPostsQuery.isFetchingNextPage
     ) {
-      observer.unobserve(entry.target);
       await jobPostsQuery.fetchNextPage();
-      observer.observe(entry.target);
     }
   };
 
-  const { setTarget } = useIntersectionObserver({
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.5,
-    onIntersect,
+  const { setTarget: setLazyImageTarget } = useIntersection({
+    threshold: 0.2,
+    rootMargin: '0px 0px 50% 0px',
+    callback: lazyImageCallback,
+  });
+
+  const { setTarget: setInfiniteScrollTarget } = useIntersection({
+    threshold: 0.2,
+    rootMargin: '0px 0px 30% 0px',
+    callback: infiniteScrollCallback,
   });
 
   if (!jobPosts) return null;
@@ -89,17 +113,19 @@ const JobPostsList = ({
                 </p>
               </div>
               <img
-                src={imagePlaceholder}
-                className="rounded-lg md:size-28 size-24"
+                ref={setLazyImageTarget}
+                data-src={jobPost.imageUrl}
+                // src="https://picsum.photos/id/0/5000/3333"
+                src={`${jobPost.imageUrl}?blur=10`}
+                className="rounded-lg md:size-28 size-24 object-cover"
+                alt={`${jobPost.id} image`}
               />
             </Link>
           </li>
         ))}
       </ul>
-      {jobPostsQuery.hasNextPage && !jobPostsQuery.isFetchingNextPage && (
-        <div ref={setTarget} />
-      )}
-      {jobPostsQuery.isFetchingNextPage && (
+      {jobPostsQuery.hasNextPage && <div ref={setInfiniteScrollTarget} />}
+      {jobPostsQuery.isFetching && (
         <div className="flex justify-center">
           <Spinner size="md" className="my-8" />
         </div>

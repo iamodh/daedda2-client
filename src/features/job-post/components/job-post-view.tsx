@@ -1,6 +1,5 @@
 import { Dividor } from '@/components/ui/form/dividor';
 import userPlaceholder from '@/assets/images/placeholder-user.png';
-import imagePlaceholder from '@/assets/images/placeholder-image.png';
 import { Button } from '@/components/ui/button/button';
 import { formatDateToKoreanShort } from '@/utils/format';
 import { useNavigate } from 'react-router';
@@ -71,7 +70,7 @@ const JobPostView = ({ jobPostId }: JobPostViewProps) => {
           <div className="flex flex-col gap-2">
             <span>근무지 사진</span>
             <img
-              src={imagePlaceholder}
+              src={jobPost.imageUrl}
               width="120px"
               className="rounded-lg md:size-28 size-26"
             />

@@ -54,6 +54,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
           })}
           maxLength={20}
           error={errors['username']}
+          value="seoulnight"
         />
         <Input
           placeholder="비밀번호"
@@ -68,6 +69,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
           })}
           maxLength={20}
           error={errors['password']}
+          value="password1"
         />
         <Button
           area-label="로그인 버튼"
