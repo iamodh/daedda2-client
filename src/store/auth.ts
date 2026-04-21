@@ -1,4 +1,4 @@
-import type { LoginInput } from '@/features/auth/components/login-form';
+import type { LoginRequest } from '@/features/auth/components/login-form';
 import type { RegisterInput } from '@/features/auth/components/register-form';
 import {
   getUser,
@@ -15,7 +15,7 @@ export interface AuthState {
 
   init: () => Promise<void>;
   register: (input: RegisterInput, onSuccess?: () => void) => Promise<void>;
-  login: (input: LoginInput, onSuccess?: () => void) => Promise<void>;
+  login: (input: LoginRequest, onSuccess?: () => void) => Promise<void>;
   logout: (onSuccess?: () => void) => void;
 }
 

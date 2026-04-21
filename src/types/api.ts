@@ -1,25 +1,20 @@
+// 공통 유틸리티
 export type BaseEntity = {
   id: number;
   createdAt: string;
 };
 
-export type Entity<T> = {
-  [K in keyof T]: T[K];
-} & BaseEntity;
+export type Entity<T> = T & BaseEntity;
 
+// 도메인 엔티티
 export type User = Entity<{
   username: string;
   nickname: string;
   phone: string;
   email: string;
-  password: string;
   isSocial: boolean;
   imageUrl: string;
 }>;
-
-export type AuthResponse = {
-  access_token: string;
-};
 
 export type JobPost = Entity<{
   title: string;
@@ -33,12 +28,17 @@ export type JobPost = Entity<{
   imageUrl: string;
   content: string;
   hourlyWage: number;
-  user?: JobPostUserInfo;
+  user?: JobPostAuthor;
   userId: number;
 }>;
 
-export type JobPostUserInfo = {
+export type JobPostAuthor = {
   id: number;
   nickname: string;
   imageUrl?: string;
+};
+
+// 응답 DTO
+export type AuthResponse = {
+  access_token: string;
 };

@@ -1,4 +1,4 @@
-import type { LoginInput } from '@/features/auth/components/login-form';
+import type { LoginRequest } from '@/features/auth/components/login-form';
 import type { RegisterInput } from '@/features/auth/components/register-form';
 import { api } from '@/lib/api-client';
 import { useAuthStore } from '@/store/auth';
@@ -11,7 +11,7 @@ export const getUser = async (): Promise<User> => {
 };
 
 export const loginWithUsernameAndPassword = (
-  data: LoginInput
+  data: LoginRequest
 ): Promise<AuthResponse> => {
   return api.post('/auth/login', data);
 };

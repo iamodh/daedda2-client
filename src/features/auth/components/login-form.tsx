@@ -7,9 +7,9 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import { paths } from '@/config/paths';
 import { useAuth } from '@/lib/auth';
+import type { User } from '@/types/api';
 
-export interface LoginInput {
-  username: string;
+export type LoginRequest = Pick<User, 'username'> & {
   password: string;
 }
 
@@ -24,9 +24,9 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginInput>();
+  } = useForm<LoginRequest>();
 
-  const onSubmit = async (values: LoginInput) => {
+  const onSubmit = async (values: LoginRequest) => {
     await login(values, () => {
       onSuccess();
     });
