@@ -1,9 +1,7 @@
 import { expect, it, vi } from 'vitest';
 
-import {
-  LoginForm,
-  type LoginRequest,
-} from '@/features/auth/components/login-form';
+import { LoginForm } from '@/features/auth/components/login-form';
+import type { LoginRequest } from '@/features/auth/api/login';
 import { renderApp } from '@/testing/test-utils';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

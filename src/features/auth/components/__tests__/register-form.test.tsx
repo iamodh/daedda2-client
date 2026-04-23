@@ -1,14 +1,12 @@
-import {
-  RegisterForm,
-  type RegisterInput,
-} from '@/features/auth/components/register-form';
+import { RegisterForm } from '@/features/auth/components/register-form';
+import type { RegisterRequest } from '@/features/auth/api/register';
 import { renderApp } from '@/testing/test-utils';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect, it, vi } from 'vitest';
 
 it('회원가입에 성공하면 onSuccess 함수가 실행되어야 한다.', async () => {
-  const input: RegisterInput = {
+  const input: RegisterRequest = {
     username: 'user1234',
     password: 'password',
     password2: 'password',

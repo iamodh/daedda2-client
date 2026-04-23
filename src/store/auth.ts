@@ -1,10 +1,6 @@
-import type { LoginRequest } from '@/features/auth/components/login-form';
-import type { RegisterInput } from '@/features/auth/components/register-form';
-import {
-  getUser,
-  loginWithUsernameAndPassword,
-  registerWithUsernameAndPassword,
-} from '@/lib/auth';
+import { getUser } from '@/features/auth/api/get-user';
+import { loginWithUsernameAndPassword, type LoginRequest } from '@/features/auth/api/login';
+import { registerWithUsernameAndPassword, type RegisterRequest } from '@/features/auth/api/register';
 import type { User } from '@/types/api';
 import { create } from 'zustand';
 
@@ -14,7 +10,7 @@ export interface AuthState {
   isInitializing: boolean;
 
   init: () => Promise<void>;
-  register: (input: RegisterInput, onSuccess?: () => void) => Promise<void>;
+  register: (input: RegisterRequest, onSuccess?: () => void) => Promise<void>;
   login: (input: LoginRequest, onSuccess?: () => void) => Promise<void>;
   logout: (onSuccess?: () => void) => void;
 }

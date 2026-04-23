@@ -13,7 +13,7 @@ export type User = Entity<{
   phone: string;
   email: string;
   isSocial: boolean;
-  imageUrl: string;
+  imageUrl?: string | null;
 }>;
 
 export type JobPost = Entity<{
@@ -36,9 +36,4 @@ export type JobPostAuthor = {
   id: number;
   nickname: string;
   imageUrl?: string;
-};
-
-// 응답 DTO
-export type AuthResponse = {
-  access_token: string;
 };

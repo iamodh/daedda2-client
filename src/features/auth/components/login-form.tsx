@@ -7,11 +7,8 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import { paths } from '@/config/paths';
 import { useAuth } from '@/lib/auth';
-import type { User } from '@/types/api';
+import type { LoginRequest } from '../api/login';
 
-export type LoginRequest = Pick<User, 'username'> & {
-  password: string;
-}
 
 interface LoginFormProps {
   onSuccess: () => void;

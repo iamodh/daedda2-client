@@ -1,7 +1,7 @@
 import * as authModule from '@/lib/auth';
 import { beforeAll, vi } from 'vitest';
-import type { LoginRequest } from '@/features/auth/components/login-form';
-import type { RegisterInput } from '@/features/auth/components/register-form';
+import type { LoginRequest } from '@/features/auth/api/login';
+import type { RegisterRequest } from '@/features/auth/api/register';
 
 vi.mock('@/lib/auth', () => ({ useAuth: vi.fn() }));
 
@@ -10,7 +10,7 @@ const createAuthMock = () => ({
   isInitializing: false,
   user: null,
   init: vi.fn(),
-  register: async (_input: RegisterInput, onSuccess?: () => void) => {
+  register: async (_input: RegisterRequest, onSuccess?: () => void) => {
     onSuccess?.();
   },
   login: async (_input: LoginRequest, onSuccess?: () => void) => {

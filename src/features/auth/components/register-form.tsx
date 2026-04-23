@@ -6,16 +6,7 @@ import { Dividor } from '@/components/ui/form/dividor';
 import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
 import { useAuth } from '@/lib/auth';
-
-export interface RegisterInput {
-  username: string;
-  password: string;
-  password2: string;
-  nickname: string;
-  phone: string;
-  email: string;
-  imageUrl?: string | null;
-}
+import type { RegisterRequest } from '../api/register';
 
 interface RegisterFormProps {
   onSuccess: () => void;
@@ -30,12 +21,12 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
     formState: { errors },
     control,
     watch,
-  } = useForm<RegisterInput>();
+  } = useForm<RegisterRequest>();
 
-  const onSubmit = async (values: RegisterInput) => {
+  const onSubmit = async (values: RegisterRequest) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password2, ...rest } = values;
-    await userRegister(rest as RegisterInput, () => onSuccess());
+    await userRegister(rest as RegisterRequest, () => onSuccess());
   };
 
   const nickname = useWatch({ control, name: 'nickname' });
